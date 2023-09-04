@@ -1,9 +1,9 @@
-package com.app.legatranskurir.retrofit
+package com.appfranchisor.app.retrofit
 
-import com.app.legatranskurir.BuildConfig
-import com.app.legatranskurir.helper.App
-import com.app.legatranskurir.helper.PreferenceHelper
-import com.app.legatranskurir.helper.Utils.hasNetwork
+import com.appfranchisor.app.BuildConfig
+import com.appfranchisor.app.helper.App
+import com.appfranchisor.app.helper.PreferenceHelper
+import com.appfranchisor.app.helper.Utils.hasNetwork
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,8 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class ApiClient (var username  :String ?= PreferenceHelper.getUsername(App.getContext()!!),
-                 var password  :String ?= PreferenceHelper.getPassword(App.getContext()!!) ) {
+class ApiClient (  ) {
 
     private val TAG = "ApiClient"
     private var mRetrofit: Retrofit? = null
@@ -54,10 +53,10 @@ class ApiClient (var username  :String ?= PreferenceHelper.getUsername(App.getCo
             })
             .addInterceptor(logging)
 
-            if (username!=null && password!=null) {
+           /* if (username!=null && password!=null) {
                 okHttpClient.addInterceptor(BasicAuthInterceptor(username!!, password!!))
             }
-
+*/
             return okHttpClient.build()
     }
 

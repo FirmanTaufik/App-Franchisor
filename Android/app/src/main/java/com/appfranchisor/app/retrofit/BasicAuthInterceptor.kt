@@ -1,4 +1,4 @@
-package com.app.legatranskurir.retrofit
+package com.appfranchisor.app.retrofit
 
 import okhttp3.Credentials
 import okhttp3.Interceptor

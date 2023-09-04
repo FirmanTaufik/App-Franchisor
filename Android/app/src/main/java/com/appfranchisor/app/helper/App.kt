@@ -1,4 +1,4 @@
-package com.app.legatranskurir.helper
+package com.appfranchisor.app.helper
 
 import android.annotation.SuppressLint
 import android.app.Activity

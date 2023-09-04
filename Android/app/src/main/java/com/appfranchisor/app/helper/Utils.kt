@@ -1,4 +1,4 @@
-package com.app.legatranskurir.helper
+package com.appfranchisor.app.helper
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -35,11 +35,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
-import com.app.legatranskurir.BuildConfig
-import com.app.legatranskurir.R
-import com.app.legatranskurir.databinding.DialogAutoCopleteTextViewBinding
-import com.app.legatranskurir.retrofit.ApiClient
-import com.app.legatranskurir.retrofit.GetService
+import com.appfranchisor.app.BuildConfig
+import com.appfranchisor.app.R
+import com.appfranchisor.app.databinding.DialogAutoCopleteTextViewBinding
+import com.appfranchisor.app.retrofit.ApiClient
+import com.appfranchisor.app.retrofit.GetService
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
