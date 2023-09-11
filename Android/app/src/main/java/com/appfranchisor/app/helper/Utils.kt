@@ -457,34 +457,6 @@ object Utils {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
-    fun regenerateDB(cabAsal :String, idKurir:String, isDone :(Boolean) ->Unit){
-        val jsonObject = JsonObject()
-        jsonObject.addProperty("cabAsal", cabAsal)
-        jsonObject.addProperty("idKurir", idKurir)
-        val service = ApiClient().client.create(GetService::class.java)
-        service.regenerateDb(jsonObject).onEnqueue(
-            onSuccess = {
-                it.body()?.apply {
-                    //downloadDB(message!!)
-//                    downloadDB("https://dev.legatrans.id/dotdb/mysqlite301343.db.zip")
-
-                    DownloadDatabase(
-                        App.getContext()!!,
-                        message!!.replace("https://dev.legatrans.co.id", BuildConfig.BASE_URL)
-                    ){
-                        println("regenerateDB $it")
-                        isDone(it)
-                    }
-
-                }
-            },
-            onFailure = {
-
-            }
-        )
-    }
-
-
 
     fun EditText?.listenOnChange(onChangeListener: (String)->Unit ) {
         var beforeChangeText = ""
@@ -512,15 +484,7 @@ object Utils {
         })
     }
 
-     val Cursor.fetchAsList: ArrayList<String> get() {
-        val list = arrayListOf<String>()
-        for (i in 0 until this.count) {
-            this.moveToPosition(i)
-            list.add(this.getString(0))
-        }
-         return list
-    }
-
+ 
 
     fun showDialogPriceNotProvided(context: Context, back:()->Unit) {
         val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(context)

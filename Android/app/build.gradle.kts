@@ -32,6 +32,7 @@ android {
     }
 
 
+    flavorDimensions.add("type")
     productFlavors {
 
         create("local") {
