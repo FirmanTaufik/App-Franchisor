@@ -95,5 +95,6 @@ dependencies {
     implementation ("com.guolindev.permissionx:permissionx:1.7.1")
     implementation ("com.github.chivorns:smartmaterialspinner:1.5.0")
 
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.androidisland.arch:vita:1.0.0")
 }
