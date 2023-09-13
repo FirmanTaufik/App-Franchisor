@@ -57,21 +57,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_daftar_franchisor"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:text="Daftar Franchisor"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         app:cornerRadius="50dp" />
-                    <com.google.android.material.button.MaterialButton
+                 <!--   <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"
                         android:text="Edit data Franchisor"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
-                        app:cornerRadius="50dp" />
+                        app:cornerRadius="50dp" />-->
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_daftar_franchiseer"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"

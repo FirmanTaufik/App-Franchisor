@@ -16,6 +16,11 @@ class AplikatorMainActivity : AppCompatActivity() {
     }
 
     private fun initOnClick() {
-        binding.buttonDashboard.setOnClickListener { startActivity(Intent(this, AplikatorDashboardActivity::class.java)) }
+        binding.apply {
+            buttonDashboard.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorDashboardActivity::class.java)) }
+            buttonDaftarFranchiseer.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorDataFranchiseActivity::class.java)) }
+            buttonDaftarFranchisor.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikastorDaftarFranchisorActivity::class.java)) }
+
+        }
     }
 }

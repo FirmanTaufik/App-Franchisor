@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:background="@color/backgroundGray"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.aplikator.AplikatorDashboardActivity">
+    <ImageButton
+        android:layout_margin="15dp"
+        android:id="@+id/button_back"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="15dp"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeColor="#38A96C"
+        app:boxBackgroundColor="#BC9C9C"
+        app:endIconTint="@android:color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:background="@color/colorWhite"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_marginStart="10dp"
+               android:textColor="#243465"
+               android:text="Produk Terlaris"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+           <TextView
+               android:drawableTint="#C4C8D3"
+               android:textAlignment="center"
+               android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                android:background="@drawable/backgorund_text_view_sort"
+               android:text="Weekly"
+               android:layout_marginEnd="10dp"
+               android:layout_alignParentEnd="true"
+               android:layout_width="100dp"
+               android:layout_height="wrap_content"/>
+       </RelativeLayout>
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/horizontal_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </LinearLayout>
+
+</LinearLayout>
