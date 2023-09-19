@@ -4,9 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import com.appfranchisor.app.R
 import com.appfranchisor.app.databinding.ActivityLoginBinding
-import com.appfranchisor.app.ui.aplikator.AplikatorMainActivity
+import com.appfranchisor.app.ui.franchisee.ui.FranchiseeMainActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding :ActivityLoginBinding
@@ -19,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initOnClick() {
-         binding.buttonLogin.setOnClickListener { startActivity(Intent(this, AplikatorMainActivity::class.java)) }
+         binding.buttonLogin.setOnClickListener { startActivity(Intent(this, FranchiseeMainActivity::class.java)) }
     }
 
 

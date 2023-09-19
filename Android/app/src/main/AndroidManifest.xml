@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.franchisee.ui.FranchiseeCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.franchisee.ui.FranchiseeMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.franchisee.ui.FranchiseeMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.aplikator.AplikatorDataFranchiseActivity"
             android:exported="false" />
         <activity

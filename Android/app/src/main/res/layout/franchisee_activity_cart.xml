@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:paddingHorizontal="15dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.franchisee.ui.FranchiseeCartActivity">
+
+    <TextView
+        android:textSize="23dp"
+        android:layout_marginTop="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:text="2 item in Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/rv"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_cart"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="23dp"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="Total:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:gravity="right"
+            android:textSize="23dp"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold"
+            android:textColor="#DFA308"
+            android:text="Rp 3260k"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_status_pesanan"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
+        android:text="Checkout"
+        android:textSize="25dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        app:cornerRadius="50dp" />
+
+</LinearLayout>
