@@ -15,7 +15,10 @@ class FranchiseeMainActivity : AppCompatActivity() {
     }
 
     private fun initOnclick() {
-        binding. buttonPesanProduk.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeMenuActivity::class.java))  }
+        binding.apply {
+            buttonPesanProduk.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeMenuActivity::class.java))  }
+            buttonStatusPesanan.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeStatusPesananActivity::class.java))  }
+        }
 
     }
 }
