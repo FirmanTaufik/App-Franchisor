@@ -5,13 +5,13 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.androidisland.vita.startVita
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate: ")
-        startVita()
         mInstance = this
     }
 

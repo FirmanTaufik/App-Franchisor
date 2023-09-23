@@ -6,7 +6,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -35,17 +34,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
-import com.appfranchisor.app.BuildConfig
 import com.appfranchisor.app.R
 import com.appfranchisor.app.databinding.DialogAutoCopleteTextViewBinding
-import com.appfranchisor.app.retrofit.ApiClient
-import com.appfranchisor.app.retrofit.GetService
 import com.bumptech.glide.Glide
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
-import com.google.gson.JsonObject
 import com.permissionx.guolindev.PermissionX
 import retrofit2.Call
 import retrofit2.Callback

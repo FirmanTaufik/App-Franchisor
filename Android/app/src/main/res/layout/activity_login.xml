@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_uername"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:hint="Username"
@@ -37,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"/>
         <EditText
+            android:id="@+id/edit_text_password"
             android:textAlignment="center"
             android:layout_marginTop="15dp"
             android:hint="Password"
@@ -56,6 +58,10 @@
             app:cornerRadius="50dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"/>
-
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

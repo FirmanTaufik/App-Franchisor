@@ -17,6 +17,7 @@
            android:layout_height="wrap_content"
            android:src="@drawable/bg_shape" />
        <com.google.android.material.floatingactionbutton.FloatingActionButton
+           android:id="@+id/button_logout"
            android:src="@drawable/baseline_logout_24"
            android:layout_gravity="right"
            android:layout_margin="15dp"
