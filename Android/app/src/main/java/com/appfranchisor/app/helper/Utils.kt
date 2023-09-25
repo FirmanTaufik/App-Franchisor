@@ -42,6 +42,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.permissionx.guolindev.PermissionX
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -513,4 +514,15 @@ object Utils {
         val sdf1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return sdf1.format(c1.time)
     }
+
+    fun  <T>Response<T> .convertErrorMessage(): String? {
+        val jsobObjects  : JSONObject = if (this.body() != null) {
+            JSONObject(this.body().toString())
+        }  else  {
+            val response  = this.errorBody()?.source()?.buffer?.snapshot()?.utf8()
+            JSONObject(response)
+        }
+        return jsobObjects.getString("message")
+    }
+
 }

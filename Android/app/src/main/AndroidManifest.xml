@@ -36,16 +36,16 @@
             android:name=".ui.franchisee.ui.FranchiseeMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.aplikator.AplikatorDataFranchiseActivity"
+            android:name=".ui.aplikator.ui.AplikatorDataFranchiseActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.aplikator.AplikastorDaftarFranchisorActivity"
+            android:name=".ui.aplikator.ui.AplikastorDaftarFranchisorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.aplikator.AplikatorDashboardActivity"
+            android:name=".ui.aplikator.ui.AplikatorDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.aplikator.AplikatorMainActivity"
+            android:name=".ui.aplikator.ui.AplikatorMainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"

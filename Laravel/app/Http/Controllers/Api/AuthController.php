@@ -13,17 +13,20 @@ class AuthController extends Controller
 
 {
     public function register(Request $request)
-    {
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|max:255|unique:users',
-        //     'password' => 'required|string|min:8'
-        // ]);
-
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors());
-        // }
+    { 
+        
+        $count = User::where('email', $request->email)->count();
+        if($count>0) {
+            return response()->json([ 
+                'message' =>  "Email Sudah di gunakan" 
+            ], 401);
+        }
+        $count = User::where('username', $request->username)->count();
+        if($count>0) {
+            return response()->json([ 
+                'message' =>  "Username Sudah di gunakan" 
+            ], 401);
+        }
 
         $user = User::create([
             'username' => $request->username,
@@ -33,12 +36,11 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+       // $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'data' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer'
+            'data' => $user, 
+            'token_type' => 'Success'
         ]);
     }
 

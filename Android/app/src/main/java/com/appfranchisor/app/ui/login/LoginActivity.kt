@@ -14,7 +14,7 @@ import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MasterVM
-import com.appfranchisor.app.ui.aplikator.AplikatorMainActivity
+import com.appfranchisor.app.ui.aplikator.ui.AplikatorMainActivity
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.franchisee.ui.FranchiseeMainActivity
 import com.appfranchisor.app.ui.franchisor.FranchisorMainActivity

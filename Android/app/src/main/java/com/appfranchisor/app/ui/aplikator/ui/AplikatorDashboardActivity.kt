@@ -1,4 +1,4 @@
-package com.appfranchisor.app.ui.aplikator
+package com.appfranchisor.app.ui.aplikator.ui
 
 import android.os.Bundle
 import com.appfranchisor.app.helper.MpChartActivity

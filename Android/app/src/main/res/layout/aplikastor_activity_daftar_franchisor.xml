@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.aplikator.AplikastorDaftarFranchisorActivity">
+    tools:context=".ui.aplikator.ui.AplikastorDaftarFranchisorActivity">
     <ImageButton
         android:id="@+id/button_back"
         android:src="@drawable/baseline_arrow_back_24"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_franchisor"
             app:boxStrokeWidth="1dp"
             app:boxStrokeColor="#38A96C"
             app:boxBackgroundColor="#BC9C9C"
@@ -30,22 +31,11 @@
             android:layout_weight="1"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="10dp"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/colorBlack"
-            app:backgroundTint="#BC9C9C"
-            android:text="Add Franchisor"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <LinearLayout
@@ -63,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_pemilik"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_head"
@@ -70,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
 
     <LinearLayout
         android:weightSum="2"
@@ -85,6 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_alamat"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -107,6 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_nomor_telpon"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -128,6 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_pic"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -149,6 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_nomor_pic"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -170,6 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_email"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -191,6 +188,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_text_id"
+            android:editable="false"
+            android:focusable="false"
             android:paddingVertical="5dp"
             android:paddingHorizontal="8dp"
             android:background="@drawable/backgorund_edt_text_input_body"
@@ -200,10 +200,20 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:text="Edit"
+        android:id="@+id/button_simpan"
+        android:text="Simpan"
+        android:layout_gravity="right"
         android:layout_marginTop="15dp"
         app:cornerRadius="15dp"
         android:textColor="@color/colorBlack"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_40"/>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress_bar"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

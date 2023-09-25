@@ -1,8 +1,7 @@
-package com.appfranchisor.app.ui.aplikator
+package com.appfranchisor.app.ui.aplikator.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
@@ -15,7 +14,6 @@ import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.MasterVM
 import com.appfranchisor.app.ui.login.LoginActivity
-import dagger.hilt.android.AndroidEntryPoint
 
 
 class AplikatorMainActivity : MainActivity() {
