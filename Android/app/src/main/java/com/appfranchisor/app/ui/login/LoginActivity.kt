@@ -17,7 +17,7 @@ import com.appfranchisor.app.ui.MasterVM
 import com.appfranchisor.app.ui.aplikator.ui.AplikatorMainActivity
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.franchisee.ui.FranchiseeMainActivity
-import com.appfranchisor.app.ui.franchisor.FranchisorMainActivity
+import com.appfranchisor.app.ui.franchisor.ui.FranchisorMainActivity
 
 
 class LoginActivity : MainActivity() {

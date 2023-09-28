@@ -21,7 +21,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesRetrofit(): Retrofit {
-        val BASE_URL ="http://192.168.100.8:8000/api/"
+        val BASE_URL ="http://192.168.100.5:8000/api/"
 
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:padding="15dp"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    tools:context=".ui.franchisor.ui.FranchisorDataFranchiseeActivity">
+<ImageButton
+    android:id="@+id/button_back"
+    android:src="@drawable/baseline_arrow_back_24"
+    android:background="@android:color/transparent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+
+<LinearLayout
+    android:layout_marginTop="15dp"
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="Pemilik"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_head"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edit_text_pemilik"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_head"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+
+<LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="Alamat"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edit_text_alamat"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+<LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="Nomor Telpon Outlet"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:inputType="number"
+        android:id="@+id/edit_text_nomor_telpon"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+</LinearLayout>
+<LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="PIC"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edit_text_pic"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+<LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:inputType="number"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="Nomor PIC"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edit_text_nomor_pic"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+<LinearLayout
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:text="Email"
+        android:focusable="false"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:inputType="textEmailAddress"
+        android:id="@+id/edit_text_email"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="8dp"
+        android:background="@drawable/backgorund_edt_text_input_body"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button_simpan"
+        android:text="Simpan"
+        android:layout_marginTop="15dp"
+        app:cornerRadius="15dp"
+        android:textColor="@color/colorBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"/>
+</RelativeLayout>
+<ProgressBar
+    android:visibility="gone"
+    android:id="@+id/progress_bar"
+    android:layout_marginTop="15dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

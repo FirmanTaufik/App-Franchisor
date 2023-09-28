@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FranchiseeController;
 use App\Http\Controllers\Api\FranchisorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,10 +25,17 @@ Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'regi
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout'])->name('login'); 
+    
+    //franchisor
     Route::get('/franchisor', [FranchisorController::class, 'index'])->name('franchisor');
     Route::post('/createFranchisor', [FranchisorController::class, 'create'])->name('createFranchisor');
     Route::post('/updateFranchisor/{id}', [FranchisorController::class, 'update'])->name('updateFranchisor');
-
+    
+    //franchisee
+    Route::get('/franchisee', [FranchiseeController::class, 'index'])->name('Franchisee');
+    Route::post('/createFranchisee', [FranchiseeController::class, 'create'])->name('createFranchisee');
+    Route::post('/updateFranchisee/{id}', [FranchiseeController::class, 'update'])->name('updateFranchisee');
+    
     Route::get('/test', function () {
         return response()->json([
             'message' => 'logout success'

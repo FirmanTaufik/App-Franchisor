@@ -17,7 +17,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 open class MpChartActivity : AppCompatActivity() {
 
     private lateinit var binding : MpchartActivityBinding
