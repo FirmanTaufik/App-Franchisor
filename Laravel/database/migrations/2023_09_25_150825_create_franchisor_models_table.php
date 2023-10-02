@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('tb_franchisor', function (Blueprint $table) {
             $table->id(); 
+            $table->integer('id_aplikator');
+            $table->string('username');
+            $table->string('password');
+            $table->integer('role')->default(2); 
             $table->string('pemilik');
             $table->string('email')->nullable();  
             $table->text('alamat')->nullable();
