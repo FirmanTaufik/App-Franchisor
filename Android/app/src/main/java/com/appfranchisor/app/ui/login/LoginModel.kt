@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class LoginModel (
     @SerializedName("message"      ) var message     : String? = null,
     @SerializedName("role"      ) var role     : Int? = null,
+    @SerializedName("user_id"      ) var userId     : Int? = null,
     @SerializedName("access_token" ) var accessToken : String? = null,
     @SerializedName("token_type"   ) var tokenType   : String? = null
 

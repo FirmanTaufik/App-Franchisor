@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\FranchisorModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class FranchisorController extends Controller
 {
@@ -14,6 +15,11 @@ class FranchisorController extends Controller
     public function update(Request $request, $id)
     { 
         $data = FranChisorModel::find($id);
+        $data->username = $request->username; 
+        if ($data->password != $request->password) {
+            $data->password =  Hash::make($request->password);
+        }
+
         $data->pemilik = $request->pemilik;
         $data->email = $request->email;
         $data->alamat = $request->alamat;
@@ -31,7 +37,10 @@ class FranchisorController extends Controller
     public function create(Request $request)
     { 
          
-        $input = $request->all();
+        $pw = Hash::make($request->password);
+        $input = $request ->all();
+        $input['password'] = $pw;
+         
         FranChisorModel::create($input);
         return response()->json([
             'message' => 'succes',

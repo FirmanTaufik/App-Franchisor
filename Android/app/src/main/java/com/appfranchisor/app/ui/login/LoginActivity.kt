@@ -54,6 +54,7 @@ class LoginActivity : MainActivity() {
                     binding.progressBar.hide()
                     val response = it.item!!
                     response.message?.showAsToast()
+                    PreferenceHelper.setUserId(this, response.userId)
                     PreferenceHelper.setToken(this, response.accessToken)
                     PreferenceHelper.setRole(this, response.role)
                     navigateToScreen()

@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -14,6 +15,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -388,28 +390,7 @@ object Utils {
         return null
     }
 
-    fun getRealPathFromURIPath(contentURI: Uri, activity: Activity): String? {
-        val cursor = activity.contentResolver.query(contentURI, null, null, null, null)
-        return if (cursor == null) {
-            contentURI.path
-        } else {
-            cursor.moveToFirst()
-            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            cursor.getString(idx)
-        }
-    }
 
-    fun<T> Call<T>.onEnqueue(onSuccess: (Response<T>) -> Unit, onFailure: (t: Throwable?) -> Unit)   {
-        this.enqueue(object: Callback<T> {
-            override fun onFailure(call: Call<T>?, t: Throwable?) {
-                onFailure(t)
-            }
-
-            override fun onResponse(call: Call<T>?, response: Response<T>) {
-                onSuccess(response)
-            }
-        })
-    }
 
 
     fun View.hide(){
@@ -525,4 +506,34 @@ object Utils {
         return jsobObjects.getString("message")
     }
 
+
+    fun getRealPathFromURIPath(contentURI: Uri, context: Context): String? {
+        if (contentURI.toString().startsWith("content://com.android.providers")) {
+            val wholeID = DocumentsContract.getDocumentId(contentURI)
+            val id = wholeID.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+            val column = arrayOf(MediaStore.Images.Media.DATA)
+            val sel = MediaStore.Images.Media._ID + "=?"
+            val cursor = context.contentResolver.query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column, sel, arrayOf(id), null
+            )
+            var filePath: String? = ""
+            val columnIndex = cursor!!.getColumnIndex(column[0])
+            if (cursor!!.moveToFirst()) {
+                filePath = cursor!!.getString(columnIndex)
+            }
+
+            cursor!!.close()
+            return filePath
+        }else{
+            val cursor: Cursor? = context.contentResolver.query(contentURI, null, null, null, null)
+            return if (cursor == null) {
+                contentURI.path
+            } else {
+                cursor.moveToFirst()
+                val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+                cursor.getString(idx)
+            }
+        }
+
+    }
 }

@@ -9,6 +9,9 @@ data class FranchisorModel  (
     data class Data (
 
         @SerializedName("id"                  ) var id                : Int?    = null,
+         @SerializedName("id_aplikator"             ) var id_aplikator           : Int? = null,
+        @SerializedName("username"             ) var username           : String? = null,
+        @SerializedName("password"             ) var password           : String? = null,
         @SerializedName("pemilik"             ) var pemilik           : String? = null,
         @SerializedName("email"               ) var email             : String? = null,
         @SerializedName("alamat"              ) var alamat            : String? = null,

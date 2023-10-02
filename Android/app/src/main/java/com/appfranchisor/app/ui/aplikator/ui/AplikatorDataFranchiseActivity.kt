@@ -29,12 +29,15 @@ class AplikatorDataFranchiseActivity : MainActivity() {
             buttonSimpan.setOnClickListener {
                 if (isValidateInput()) {
                     viewmodel.postUser(
+                        PreferenceHelper.getUserId(this@AplikatorDataFranchiseActivity)!!,
+                        editTextUsername.text.toString(),
+                        editTextPassword.text.toString(),
                         editTextPemilik.text.toString(),
+                        editTextEmail.text.toString(),
                         editTextAlamat.text.toString(),
                         editTextNomorTelpon.text.toString(),
                         editTextPic.text.toString(),
-                        editTextNomorPic.text.toString(),
-                        editTextEmail.text.toString()
+                        editTextNomorPic.text.toString()
                     ).observe(this@AplikatorDataFranchiseActivity){
                         when(it) {
                             is ApiResponse.Success ->{
@@ -63,6 +66,8 @@ class AplikatorDataFranchiseActivity : MainActivity() {
     private fun clearInput() {
         binding.apply {
 
+            editTextUsername.text.clear()
+            editTextPassword.text.clear()
             editTextPemilik.text.clear()
             editTextAlamat.text.clear()
             editTextNomorTelpon.text.clear()
@@ -75,6 +80,14 @@ class AplikatorDataFranchiseActivity : MainActivity() {
 
     private fun isValidateInput(): Boolean {
         binding.apply {
+            if (editTextUsername.text.isNullOrEmpty()) {
+                "Pemilik Masih Kosong".showAsToast()
+                return false
+            }
+            if (editTextPassword.text.isNullOrEmpty()) {
+                "Pemilik Masih Kosong".showAsToast()
+                return false
+            }
             if (editTextPemilik.text.isNullOrEmpty()) {
                 "Pemilik Masih Kosong".showAsToast()
                 return false

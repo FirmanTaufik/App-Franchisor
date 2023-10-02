@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.AplikastorActivityDaftarFranchisorBinding
+import com.appfranchisor.app.helper.PreferenceHelper
 import com.appfranchisor.app.helper.Utils.addDropdown
 import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
@@ -40,6 +41,8 @@ class AplikastorDaftarFranchisorActivity : MainActivity() {
 
     private fun setUIEditText(data: FranchisorModel.Data) {
         binding.apply {
+            editTextUsername.setText( data.username)
+            editTextPassword.setText( data.password)
             editTextPemilik.setText( data.pemilik)
             editTextAlamat.setText( data.alamat)
             editTextNomorTelpon.setText( data.nomorTelponOutlet.toString())
@@ -56,12 +59,15 @@ class AplikastorDaftarFranchisorActivity : MainActivity() {
                 if (isValidateInput()) {
                     viewmodel.updateUser(
                         editTextId.text.toString().toInt(),
+                        PreferenceHelper.getUserId(this@AplikastorDaftarFranchisorActivity)!!,
+                        editTextUsername.text.toString(),
+                        editTextPassword.text.toString(),
                         editTextPemilik.text.toString(),
+                        editTextEmail.text.toString(),
                         editTextAlamat.text.toString(),
                         editTextNomorTelpon.text.toString(),
                         editTextPic.text.toString(),
-                        editTextNomorPic.text.toString(),
-                        editTextEmail.text.toString()
+                        editTextNomorPic.text.toString()
                     ).observe(this@AplikastorDaftarFranchisorActivity){
                         when(it) {
                             is ApiResponse.Success ->{
@@ -88,6 +94,14 @@ class AplikastorDaftarFranchisorActivity : MainActivity() {
 
     private fun isValidateInput(): Boolean {
         binding.apply {
+            if (editTextUsername.text.isNullOrEmpty()) {
+                "Pemilik Masih Kosong".showAsToast()
+                return false
+            }
+            if (editTextPassword.text.isNullOrEmpty()) {
+                "Pemilik Masih Kosong".showAsToast()
+                return false
+            }
             if (editTextPemilik.text.isNullOrEmpty()) {
                 "Pemilik Masih Kosong".showAsToast()
                 return false

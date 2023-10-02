@@ -61,7 +61,54 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
+            android:text="Username"
+            android:focusable="false"
+            android:background="@drawable/backgorund_edt_text_input_body"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_text_username"
+            android:paddingVertical="5dp"
+            android:inputType="text"
+            android:focusable="false"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/backgorund_edt_text_input_body"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
+            android:text="Password"
+            android:focusable="false"
+            android:background="@drawable/backgorund_edt_text_input_body"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
+            android:inputType="textPassword"
+            android:background="@drawable/backgorund_edt_text_input_body"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <LinearLayout
         android:weightSum="2"

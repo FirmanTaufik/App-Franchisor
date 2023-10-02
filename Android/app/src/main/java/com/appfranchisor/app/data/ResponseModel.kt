@@ -1,4 +1,4 @@
-package com.appfranchisor.app.ui
+package com.appfranchisor.app.data
 
 import com.google.gson.annotations.SerializedName
 

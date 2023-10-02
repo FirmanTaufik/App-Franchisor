@@ -29,16 +29,19 @@ class AplikatorVM  @Inject constructor(private val apiService: ApiService) : Vie
 
     fun updateUser(
         id:Int,
+        id_aplikator: Int,
+        username: String,
+        password: String,
         pemilik: String,
+        email: String,
         alamat: String,
         nomorTelpon: String,
         pic: String,
-        nomorPIC: String,
-        email: String
+        nomorPIC: String
     )= flow {
         emit(ApiResponse.Loading)
         val response = apiService.updateFranchisor(
-            id,  pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
+            id,  id_aplikator, username, password, pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
         )
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))
@@ -49,16 +52,19 @@ class AplikatorVM  @Inject constructor(private val apiService: ApiService) : Vie
     }.asLiveData(viewModelScope.coroutineContext)
 
     fun postUser(
+        id_aplikator: Int,
+        username: String,
+        password: String,
         pemilik: String,
+        email: String,
         alamat: String,
         nomorTelpon: String,
         pic: String,
-        nomorPIC: String,
-        email: String
+        nomorPIC: String
     )= flow {
         emit(ApiResponse.Loading)
         val response = apiService.createFranchisor(
-            pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
+            id_aplikator, username, password,  pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
         )
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))

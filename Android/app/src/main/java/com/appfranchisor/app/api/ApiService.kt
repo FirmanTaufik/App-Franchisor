@@ -1,16 +1,22 @@
 package com.appfranchisor.app.api
 
-import com.appfranchisor.app.ui.ResponseModel
+import com.appfranchisor.app.data.KategoriModel
+import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
 import com.appfranchisor.app.ui.franchisor.FranchiseeModel
 import com.appfranchisor.app.ui.login.LoginModel
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
-import retrofit2.http.Query
+
 
 interface ApiService {
 
@@ -30,6 +36,9 @@ interface ApiService {
     @FormUrlEncoded
     @POST("createFranchisor")
     suspend fun createFranchisor(
+        @Field("id_aplikator") id_aplikator: Int?,
+        @Field("username") username: String?,
+        @Field("password") password: String?,
         @Field("pemilik") nama: String?,
         @Field("email") email: String?,
         @Field("alamat") alamat: String?,
@@ -42,12 +51,16 @@ interface ApiService {
     @POST("updateFranchisor/{id}")
     suspend fun updateFranchisor(
         @Path("id") id: Int,
+        @Field("id_aplikator") id_aplikator: Int?,
+        @Field("username") username: String?,
+        @Field("password") password: String?,
         @Field("pemilik") nama: String?,
         @Field("email") email: String?,
         @Field("alamat") alamat: String?,
         @Field("nomor_telpon_outlet") nomor_telpon_outlet: String?,
         @Field("pic") pic: String?,
-        @Field("nomor_pic") nomor_pic: String?, ) : Response<ResponseModel>
+        @Field("nomor_pic") nomor_pic: String?,
+    ) : Response<ResponseModel>
 
     @GET("franchisor")
     suspend fun franchisor( ) : Response<FranchisorModel>
@@ -56,6 +69,9 @@ interface ApiService {
     @FormUrlEncoded
     @POST("createFranchisee")
     suspend fun createFranchisee(
+        @Field("id_franchisor") id_franchisor: Int?,
+        @Field("username") username: String?,
+        @Field("password") password: String?,
         @Field("pemilik") nama: String?,
         @Field("email") email: String?,
         @Field("alamat") alamat: String?,
@@ -68,16 +84,33 @@ interface ApiService {
     @POST("updateFranchisee/{id}")
     suspend fun updateFranchisee(
         @Path("id") id: Int,
+        @Field("id_franchisor") id_franchisor: Int?,
+        @Field("username") username: String?,
+        @Field("password") password: String?,
         @Field("pemilik") nama: String?,
         @Field("email") email: String?,
         @Field("alamat") alamat: String?,
         @Field("nomor_telpon_outlet") nomor_telpon_outlet: String?,
         @Field("pic") pic: String?,
-        @Field("nomor_pic") nomor_pic: String?, ) : Response<ResponseModel>
+        @Field("nomor_pic") nomor_pic: String?,
+    ) : Response<ResponseModel>
 
     @GET("franchisee")
     suspend fun franchisee( ) : Response<FranchiseeModel>
 
     @POST("logout")
     suspend fun postLogout( ) : Response<String>
+
+    @GET("kategori")
+    suspend fun getkategori(): Response<KategoriModel>
+
+    @Multipart
+    @POST("createProduk")
+    suspend fun postProduk(
+        @Part("id_franchisor") id_franchisor: RequestBody?,
+        @Part("id_kategori") id_kategori: RequestBody?,
+        @Part("nama") nama: RequestBody?,
+        @Part("harga") harga: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): Response<ResponseModel>
 }

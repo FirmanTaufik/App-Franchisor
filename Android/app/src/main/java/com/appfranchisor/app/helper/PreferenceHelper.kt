@@ -10,6 +10,7 @@ object PreferenceHelper {
     private const val FIRST_TIME = "FIRST_TIME"
     private const val ROLE= "ROLE"
     private const val TOKEN= "TOKEN"
+    private const val USER_ID= "USER_ID"
 
     fun clearAllPreference(context: Context) {
         mySharedPreferences = context.getSharedPreferences(
@@ -65,6 +66,21 @@ object PreferenceHelper {
         return mySharedPreferences!!.getInt(ROLE,1)
     }
 
+    fun setUserId(context: Context, value: Int?) {
+        mySharedPreferences = context.getSharedPreferences(
+            PREF, Context.MODE_PRIVATE
+        )
+        val myEditor = mySharedPreferences!!.edit()
+        myEditor.putInt(USER_ID, value!!)
+        myEditor.commit()
+        myEditor.apply()
+    }
 
+    fun getUserId(context: Context): Int? {
+        mySharedPreferences = context.getSharedPreferences(
+            PREF, Context.MODE_PRIVATE
+        )
+        return mySharedPreferences!!.getInt(USER_ID,0)
+    }
 
 }
