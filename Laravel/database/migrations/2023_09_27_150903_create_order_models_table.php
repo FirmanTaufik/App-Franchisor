@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('tb_order', function (Blueprint $table) {
             $table->id();  
             $table->date('tanggal'); 
-            $table->string('nama_pembeli'); 
-            $table->integer('id_produk');  
-            $table->integer('qty'); 
-            $table->integer('harga'); 
+            $table->integer('id_franchisee'); 
+            $table->string('nama_pembeli');  
             $table->integer('status'); 
             $table->timestamps();
         });

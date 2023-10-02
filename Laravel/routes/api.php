@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\Api\FranchiseeController;
 use App\Http\Controllers\Api\FranchisorController;
+use App\Http\Controllers\Api\KategoriController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ProdukController;
+use App\Models\OrderModel;
+use App\Models\ProdukModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +41,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createFranchisee', [FranchiseeController::class, 'create'])->name('createFranchisee');
     Route::post('/updateFranchisee/{id}', [FranchiseeController::class, 'update'])->name('updateFranchisee');
     
+
+    //kategori 
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+    Route::post('/createKategori', [KategoriController::class, 'create'])->name('createKategori');
+
+
+    //pproduk
+    Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
+    Route::post('/createProduk', [ProdukController::class, 'create'])->name('createProduk');
+
+    //order
+    Route::post('/createOrder', [OrderController::class, 'create'])->name('createOrder');
+
     Route::get('/test', function () {
         return response()->json([
             'message' => 'logout success'
