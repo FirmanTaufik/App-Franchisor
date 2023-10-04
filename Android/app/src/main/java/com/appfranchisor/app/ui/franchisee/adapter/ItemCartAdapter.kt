@@ -18,10 +18,10 @@ class ItemCartAdapter(data: MutableList<CartModel> = arrayListOf()) :
     override fun convert(holder: BaseViewHolder, item: CartModel ) {
         val x = ItemCartBinding.bind(holder.itemView)
         x.apply {
-            textViewTitle.text = item.title
-            textViewHarga.text = item.harga.toDouble().convertRupiah()
+            textViewTitle.text = item.nama
+            textViewHarga.text = item.harga?.toDouble()!!.convertRupiah()
             textViewQty.text = item.qty.toString()
-            Utils.loadImage(context, item.gambar, x.image)
+            Utils.loadImage(context, "${context.resources.getString(R.string.base_url)}/imageproduct/${item.gambar!!}",x.image)
             buttonDelete.setOnClickListener { listener.onDelete(getItemPosition(item)) }
             buttonMin.setOnClickListener { listener.onMin(getItemPosition(item)) }
             buttonPlus.setOnClickListener { listener.onPlus(getItemPosition(item)) }

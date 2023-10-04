@@ -11,6 +11,7 @@ object PreferenceHelper {
     private const val ROLE= "ROLE"
     private const val TOKEN= "TOKEN"
     private const val USER_ID= "USER_ID"
+    private const val CART= "CART"
 
     fun clearAllPreference(context: Context) {
         mySharedPreferences = context.getSharedPreferences(
@@ -83,4 +84,34 @@ object PreferenceHelper {
         return mySharedPreferences!!.getInt(USER_ID,0)
     }
 
+    fun getCart(context: Context): String? {
+        mySharedPreferences = context.getSharedPreferences(
+            PREF, Context.MODE_PRIVATE
+        )
+        return mySharedPreferences!!.getString(CART, null)
+    }
+
+
+
+    fun setCart(context: Context, value: String) {
+        mySharedPreferences = context.getSharedPreferences(
+            PREF, Context.MODE_PRIVATE
+        )
+        val myEditor = mySharedPreferences!!.edit()
+        if (value.isEmpty())
+            myEditor.putString(CART,  null)
+        else
+            myEditor.putString(CART, value!!)
+        myEditor.commit()
+        myEditor.apply()
+    }
+
+    fun removeChart(context: Context){
+        mySharedPreferences = context.getSharedPreferences(
+            PREF, Context.MODE_PRIVATE
+        )
+        val myEditor = mySharedPreferences!!.edit()
+        myEditor.remove(CART)
+        myEditor.apply()
+    }
 }

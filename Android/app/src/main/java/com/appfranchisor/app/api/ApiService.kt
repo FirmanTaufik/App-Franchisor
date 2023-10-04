@@ -3,6 +3,7 @@ package com.appfranchisor.app.api
 import com.appfranchisor.app.data.KategoriModel
 import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
+import com.appfranchisor.app.ui.franchisee.model.PesanProduk
 import com.appfranchisor.app.ui.franchisor.FranchiseeModel
 import com.appfranchisor.app.ui.login.LoginModel
 import okhttp3.MultipartBody
@@ -113,4 +114,20 @@ interface ApiService {
         @Part("harga") harga: RequestBody?,
         @Part image: MultipartBody.Part?
     ): Response<ResponseModel>
+
+
+
+    @GET("pesanProduk")
+    suspend fun pesanProduk(): Response<PesanProduk>
+
+
+    @FormUrlEncoded
+    @POST("createOrder")
+    suspend fun createOrder(
+        @Field("tanggal") tanggal: String?,
+        @Field("id_franchisee") username: Int?,
+        @Field("nama_pembeli") nama_pembeli: String?,
+        @Field("status") status: Int?,
+        @Field("cart") cart: String?
+    ): Response<String>
 }

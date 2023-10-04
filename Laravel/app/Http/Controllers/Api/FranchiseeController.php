@@ -4,11 +4,28 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\FranchiseeModel;
+use App\Models\KategoriModel;
+use App\Models\ProdukModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use stdClass;
 
 class FranchiseeController extends Controller
 {
+
+
+    function pesanProduk()   {
+        $produk=ProdukModel::all();
+        $kategori=KategoriModel::all();
+        $std= new stdClass();
+        $std->produk = $produk;
+        $std->kategori = $kategori;
+        return response()->json([
+            'message' => 'succes',
+            'data' =>  $std,
+        ], 200);
+    }
+
     public function update(Request $request, $id)
     { 
         $data = FranchiseeModel::find($id);

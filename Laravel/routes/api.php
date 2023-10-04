@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\FranchisorController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProdukController;
+use App\Models\FranchiseeModel;
 use App\Models\OrderModel;
 use App\Models\ProdukModel;
 use Illuminate\Http\Request;
@@ -53,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //order
     Route::post('/createOrder', [OrderController::class, 'create'])->name('createOrder');
+
+    //franchisee
+    Route::get('/pesanProduk', [FranchiseeController::class, 'pesanProduk'])->name('pesanProduk');
 
     Route::get('/test', function () {
         return response()->json([

@@ -45,8 +45,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.permissionx.guolindev.PermissionX
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.text.NumberFormat
@@ -192,7 +190,9 @@ object Utils {
     fun Any.convertRupiah(): String {
         val localId = Locale("in", "ID")
         val formatter = NumberFormat.getCurrencyInstance(localId)
-        return formatter.format(this)
+        return formatter.format(this).replace(",00","")
+       /* val rupiah = formatter.format(this)
+        return rupiah.dropLast(7)+"K"*/
     }
 
     fun showDateDialog(context: Context, onSelect: (select: String) -> Unit) {

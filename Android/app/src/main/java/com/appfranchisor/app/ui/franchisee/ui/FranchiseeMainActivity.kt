@@ -6,14 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.FranchiseeActivityMainBinding
+import com.appfranchisor.app.helper.PreferenceHelper
+import com.appfranchisor.app.helper.Utils
+import com.appfranchisor.app.helper.Utils.showAsToast
+import com.appfranchisor.app.ui.MainActivity
+import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.login.LoginActivity
 
-class FranchiseeMainActivity : AppCompatActivity() {
+class FranchiseeMainActivity : MainActivity() {
     private lateinit var binding :FranchiseeActivityMainBinding
+    private lateinit var   viewModel : MasterVM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =FranchiseeActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel =   ViewModelProvider(this)[MasterVM:: class.java]
         initOnclick()
     }
 
@@ -21,10 +31,32 @@ class FranchiseeMainActivity : AppCompatActivity() {
         binding.apply {
             buttonPesanProduk.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeMenuActivity::class.java))  }
             buttonStatusPesanan.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeStatusPesananActivity::class.java))  }
+            buttonLogout.setOnClickListener {
+                Utils.showDialogDefaultConfirmation(this@FranchiseeMainActivity, title = "Butuh Konfirmasi",
+                    message =  "Apakah Yakin Mau logout?",
+                    onNegative = {},
+                    onPositive = {
+                        postLogOut()
+                    })
+            }
         }
 
     }
-
+    private fun postLogOut() {
+        viewModel.postLogout().observe(this) {
+            when(it){
+                is ApiResponse.Success->{
+                    "Sukses Logout".showAsToast()
+                    PreferenceHelper.clearAllPreference(this)
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+                is ApiResponse.Error ->{
+                    it.message.showAsToast()
+                }
+                else ->Unit
+            }
+        }
+    }
     var doubleBackToExitPressedOnce=false
     @SuppressLint("NewApi")
     override fun onBackPressed() {

@@ -6,15 +6,22 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.appfranchisor.app.R
 import com.appfranchisor.app.databinding.ItemKategoriBinding
+import com.appfranchisor.app.helper.Utils
+import com.appfranchisor.app.ui.franchisee.model.PesanProduk
 
-class ItemKategoriAdapter(data: MutableList<Pair<Int, String> > = arrayListOf()) :
-    BaseQuickAdapter<Pair<Int, String> , BaseViewHolder>(R.layout.item_kategori, data) {
+class ItemKategoriAdapter(data: MutableList<PesanProduk.Kategori> = arrayListOf()) :
+    BaseQuickAdapter<PesanProduk.Kategori , BaseViewHolder>(R.layout.item_kategori, data) {
 
-    override fun convert(holder: BaseViewHolder, item: Pair<Int, String> ) {
+    override fun convert(holder: BaseViewHolder, item: PesanProduk.Kategori ) {
         val x = ItemKategoriBinding.bind(holder.itemView)
         x.apply {
-            imageView.setImageResource(item.first)
-            textViewTitle.text = item.second
+            Utils.loadImage(context, "${context.resources.getString(R.string.base_url)}/imagekategori/${item.gambar!!}",imageView)
+            textViewTitle.text = item.nama
+
+            if (item.isSelected==true)
+                cardView.setCardBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+            else cardView.setCardBackgroundColor(context.resources.getColor(R.color.colorBgCard))
+
         }
 
         x.root.setOnClickListener {
@@ -22,8 +29,14 @@ class ItemKategoriAdapter(data: MutableList<Pair<Int, String> > = arrayListOf())
         }
     }
 
+    fun setPositionSelect(position: Int){
+        data.forEachIndexed { index, kategori ->
+            kategori.isSelected = position==index
+        }
+        notifyDataSetChanged()
+    }
 
-    override fun getItemPosition(item: Pair<Int, String> ?): Int {
+    override fun getItemPosition(item: PesanProduk.Kategori?): Int {
         return super.getItemPosition(item)
     }
 

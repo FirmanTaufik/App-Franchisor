@@ -6,16 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.appfranchisor.app.R
+import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.FranchisorActivityMainBinding
+import com.appfranchisor.app.helper.PreferenceHelper
+import com.appfranchisor.app.helper.Utils
+import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
+import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.login.LoginActivity
 
 class FranchisorMainActivity : MainActivity() {
+    private lateinit var   viewModel : MasterVM
     lateinit var binding : FranchisorActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=FranchisorActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel =   ViewModelProvider(this)[MasterVM:: class.java]
         initOnClick()
     }
 
@@ -25,7 +34,29 @@ class FranchisorMainActivity : MainActivity() {
             buttonDataDranchisee.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDataFranchiseeActivity::class.java)) }
             buttonDashboard.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDashboardActivity::class.java)) }
             buttonInputProduk.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorInputProdukActivity::class.java)) }
-
+            buttonLogout.setOnClickListener {
+                Utils.showDialogDefaultConfirmation(this@FranchisorMainActivity, title = "Butuh Konfirmasi",
+                    message =  "Apakah Yakin Mau logout?",
+                    onNegative = {},
+                    onPositive = {
+                        postLogOut()
+                    })
+            }
+        }
+    }
+    private fun postLogOut() {
+        viewModel.postLogout().observe(this) {
+            when(it){
+                is ApiResponse.Success->{
+                    "Sukses Logout".showAsToast()
+                    PreferenceHelper.clearAllPreference(this)
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+                is ApiResponse.Error ->{
+                    it.message.showAsToast()
+                }
+                else ->Unit
+            }
         }
     }
 

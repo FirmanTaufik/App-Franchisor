@@ -10,6 +10,7 @@
     tools:context=".ui.franchisee.ui.FranchiseeCartActivity">
 
     <TextView
+        android:id="@+id/text_view_cart_item_count"
         android:textSize="23dp"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
@@ -42,13 +43,14 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/text_view_total_harga"
             android:layout_marginStart="10dp"
             android:gravity="right"
             android:textSize="23dp"
             android:layout_marginTop="12dp"
             android:textStyle="bold"
             android:textColor="#DFA308"
-            android:text="Rp 3260k"
+            android:text="Rp0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -62,5 +64,12 @@
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         app:cornerRadius="50dp" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress_bar"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

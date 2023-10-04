@@ -7,8 +7,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
         app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="#EFEEEE"
+        app:cardBackgroundColor="@color/colorBgCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView

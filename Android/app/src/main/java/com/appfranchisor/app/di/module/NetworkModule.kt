@@ -1,5 +1,6 @@
 package com.appfranchisor.app.di.module
 
+import com.appfranchisor.app.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,13 +22,13 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesRetrofit(): Retrofit {
-        val BASE_URL ="http://192.168.8.171:8000/api/"
+        val BASE_URL_API ="${App.getContext()?.resources?.getString(R.string.base_url)}/api/"
 
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_URL_API)
             .client(OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .addInterceptor { chain ->
