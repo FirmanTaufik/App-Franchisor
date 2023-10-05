@@ -3,6 +3,7 @@ package com.appfranchisor.app.api
 import com.appfranchisor.app.data.KategoriModel
 import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
+import com.appfranchisor.app.ui.franchisee.model.OrderModel
 import com.appfranchisor.app.ui.franchisee.model.PesanProduk
 import com.appfranchisor.app.ui.franchisor.FranchiseeModel
 import com.appfranchisor.app.ui.login.LoginModel
@@ -130,4 +131,8 @@ interface ApiService {
         @Field("status") status: Int?,
         @Field("cart") cart: String?
     ): Response<String>
+
+    @GET("order/{id}")
+    suspend fun getOrder(@Path("id") id: Int?,
+                      ): Response<OrderModel>
 }

@@ -29,8 +29,16 @@ class FranchiseeCartActivity : MainActivity() {
         binding = FranchiseeActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel =   ViewModelProvider(this)[FranchiseeVM:: class.java]
-        initRV()
+
+        if (intent.hasExtra("cart"))
+            initFetchOrder()
+        else   initRVToOrder()
+
         initOnClick()
+    }
+
+    private fun initFetchOrder() {
+
     }
 
     private fun initOnClick() {
@@ -44,7 +52,7 @@ class FranchiseeCartActivity : MainActivity() {
 
     private fun saveDatabase() {
         val cartJson = Gson().toJson(adapter.data)
-        viewModel.createOrder(Utils.dateyyyyMMdd, "tesnama", cartJson).observe(this) {
+        viewModel.createOrder(Utils.getDateNow, "tesnama", cartJson).observe(this) {
             when(it) {
                 is ApiResponse.Success ->{
                     "Sukses membuat Order".showAsToast()
@@ -66,7 +74,7 @@ class FranchiseeCartActivity : MainActivity() {
         }
     }
 
-    private fun initRV() {
+    private fun initRVToOrder() {
         var listCart = arrayListOf<CartModel>()
         if (PreferenceHelper.getCart(this)!=null){
             val listType = object : TypeToken<ArrayList<CartModel?>?>() {}.type
@@ -105,7 +113,9 @@ class FranchiseeCartActivity : MainActivity() {
     }
 
     override fun onBackPressed() {
-        saveList()
+        if (!intent.hasExtra("cart")){
+            saveList()
+        }
         finish()
         super.onBackPressed()
     }

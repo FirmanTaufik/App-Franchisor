@@ -37,12 +37,13 @@ class FranchiseeVM  @Inject constructor(private val apiService: ApiService) : Vi
         emit(ApiResponse.Error( it.message!!))
     }.asLiveData(viewModelScope.coroutineContext)
 
-    fun postLogin(username:String, password:String) = flow {
+
+    fun getOrder(idFranchisee:Int) =flow {
         emit(ApiResponse.Loading)
-        val response = apiService.postLogin(username, password)
+        val response = apiService.getOrder(idFranchisee)
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))
-        }else emit(ApiResponse.Error( "Username atau Password Salah"))
+        }else emit(ApiResponse.Error( "terjadi kesalahan"))
 
     }.catch {
         emit(ApiResponse.Error( it.message!!))

@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/createProduk', [ProdukController::class, 'create'])->name('createProduk');
 
     //order
+    Route::get('/order/{id}', [OrderController::class, 'index'])->name('order');
     Route::post('/createOrder', [OrderController::class, 'create'])->name('createOrder');
 
     //franchisee
