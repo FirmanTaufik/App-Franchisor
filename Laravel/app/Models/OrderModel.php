@@ -14,6 +14,8 @@ class OrderModel extends Model
         'tanggal',
         'id_franchisee',
         'nama_pembeli',
+        'no_hp',
+        'alamat',
         'status' 
     ];
 }
