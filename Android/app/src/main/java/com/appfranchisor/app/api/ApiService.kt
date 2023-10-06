@@ -128,6 +128,8 @@ interface ApiService {
         @Field("tanggal") tanggal: String?,
         @Field("id_franchisee") username: Int?,
         @Field("nama_pembeli") nama_pembeli: String?,
+        @Field("no_hp") no_hp: String?,
+        @Field("alamat") alamat: String?,
         @Field("status") status: Int?,
         @Field("cart") cart: String?
     ): Response<String>

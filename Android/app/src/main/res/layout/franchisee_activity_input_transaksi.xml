@@ -1,9 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:fillViewport="true"
+    android:background="@color/backgroundGray"
+    android:paddingHorizontal="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.franchisee.ui.FranchiseeInputTransaksiActivity">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_weight="1"
+           android:gravity="center"
+           android:orientation="vertical"
+           android:layout_above="@+id/linear_bottom"
+           android:layout_width="match_parent"
+           android:layout_height="0dp">
+           <EditText
+               android:id="@+id/edit_text_nama"
+               android:layout_marginTop="20dp"
+               android:hint="Nama"
+               android:background="@drawable/backgorund_edt_text"
+               android:inputType="text"
+               android:padding="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="70dp"/>
+           <EditText
+               android:id="@+id/edit_text_no_hp"
+               android:layout_marginTop="20dp"
+               android:hint="No Hp"
+               android:background="@drawable/backgorund_edt_text"
+               android:inputType="number"
+               android:padding="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="70dp"/>
+           <EditText
+               android:id="@+id/edit_text_alamat"
+               android:layout_marginTop="20dp"
+               android:hint="Alamat"
+               android:background="@drawable/backgorund_edt_text"
+               android:inputType="textImeMultiLine"
+               android:padding="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="120dp"/>
+       </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+       <LinearLayout
+           android:orientation="vertical"
+           android:id="@+id/linear_bottom"
+           android:layout_alignParentBottom="true"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <com.google.android.material.button.MaterialButton
+                   android:layout_width="150dp"
+                   android:layout_height="70dp"
+                   android:layout_marginTop="5dp"
+                   android:text="TOTAL"
+                   app:backgroundTint="#FF0303"
+                   android:textAllCaps="false"
+                   android:textColor="@color/colorWhite"
+                   app:cornerRadius="50dp" />
+               <TextView
+                   android:id="@+id/textViewTotalHarga"
+                   android:layout_marginStart="15dp"
+                   android:layout_gravity="center"
+                   android:textStyle="bold"
+                   android:textSize="23dp"
+                   android:textColor="#DFA308"
+                   android:text="Rp 3260k"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+           </LinearLayout>
+           <TextView
+               android:layout_marginTop="5dp"
+               android:textStyle="bold"
+               android:textSize="23dp"
+               android:textColor="@color/colorBlack"
+               android:text="Pesanan"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/rv"
+                   android:layout_marginEnd="15dp"
+                   android:layout_marginVertical="10dp"
+                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                   android:orientation="horizontal"
+                   tools:listitem="@layout/item_small_cart"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"/>
+               <com.google.android.material.card.MaterialCardView
+                   android:id="@+id/card_add"
+                   app:cardCornerRadius="10dp"
+                   app:cardBackgroundColor="#EFEEEE"
+                   android:layout_gravity="center"
+                   android:layout_width="80dp"
+                   android:layout_height="80dp">
+
+                   <ImageButton
+                       android:layout_margin="5dp"
+                       android:background="@android:color/transparent"
+                       android:layout_gravity="bottom|right"
+                       android:src="@drawable/ellipse_5"
+                       android:layout_width="30dp"
+                       android:layout_height="wrap_content"/>
+               </com.google.android.material.card.MaterialCardView>
+           </LinearLayout>
+
+
+
+           <com.google.android.material.button.MaterialButton
+               android:id="@+id/button_add_to_cart"
+               android:layout_width="match_parent"
+               android:layout_height="70dp"
+               android:layout_marginTop="5dp"
+               android:text="Add to Cart"
+               android:textSize="25dp"
+               android:textAllCaps="false"
+               android:textColor="@color/colorWhite"
+               app:cornerRadius="50dp" />
+       </LinearLayout>
+   </LinearLayout>
+</ScrollView>

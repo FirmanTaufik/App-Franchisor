@@ -1,6 +1,7 @@
 package com.appfranchisor.app.ui.franchisee.ui
 
 import android.content.ClipData.Item
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -51,15 +52,19 @@ class FranchiseeCartActivity : MainActivity() {
     }
 
     private fun saveDatabase() {
+        val nama =intent.getStringExtra("nama")!!
+        val noHp =intent.getStringExtra("noHp")!!
+        val alamat =intent.getStringExtra("alamat")!!
         val cartJson = Gson().toJson(adapter.data)
-        viewModel.createOrder(Utils.getDateNow, "tesnama", cartJson).observe(this) {
+        viewModel.createOrder(Utils.getDateNow, nama, noHp, alamat, cartJson)
+            .observe(this) {
             when(it) {
                 is ApiResponse.Success ->{
                     "Sukses membuat Order".showAsToast()
                     binding.buttonStatusPesanan.show()
                     binding.progressBar.hide()
                    PreferenceHelper.removeChart( this)
-                    finish()
+                    startActivity(Intent(this, FranchiseeMainActivity::class.java))
                 }
                 is ApiResponse.Error ->{
                     it.message.showAsToast()

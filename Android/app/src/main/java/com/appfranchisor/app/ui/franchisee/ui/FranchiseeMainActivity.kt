@@ -29,7 +29,7 @@ class FranchiseeMainActivity : MainActivity() {
 
     private fun initOnclick() {
         binding.apply {
-            buttonPesanProduk.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeMenuActivity::class.java))  }
+            buttonInputDataTransaksi.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeInputTransaksiActivity::class.java))  }
             buttonStatusPesanan.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeStatusPesananActivity::class.java))  }
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@FranchiseeMainActivity, title = "Butuh Konfirmasi",

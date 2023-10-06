@@ -15,10 +15,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FranchiseeVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
-    fun createOrder(tanggal:String, nama:String, cart:String ) = flow {
+    fun createOrder(tanggal:String, nama:String, noHp:String,alamat:String,cart:String ) = flow {
         emit(ApiResponse.Loading)
         val response = apiService.createOrder(tanggal, PreferenceHelper.getUserId(App.getContext()!!)!!,
-           nama, 1, cart )
+           nama, noHp, alamat,1, cart )
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))
         }else emit(ApiResponse.Error( "terjadi kesalahan"))

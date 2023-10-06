@@ -61,15 +61,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_pesan_produk"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:text="Pesan Produk"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorBlack"
-                        app:cornerRadius="50dp" />
-                    <com.google.android.material.button.MaterialButton
+                             <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_status_pesanan"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"

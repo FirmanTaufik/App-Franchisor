@@ -67,8 +67,7 @@ class FranchiseeMenuActivity : MainActivity() {
         binding.swipeRefresh.setOnRefreshListener {
             getData()
         }
-         binding.buttonCart.setOnClickListener { startActivity(Intent(this, FranchiseeCartActivity::class.java)) }
-    }
+     }
 
     private fun initProdukRV( idKategori: Int) {
         val list =  produk.filter { it.idKategori== idKategori}
