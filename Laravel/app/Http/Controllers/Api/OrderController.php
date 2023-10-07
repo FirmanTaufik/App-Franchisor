@@ -19,7 +19,7 @@ class OrderController extends Controller
         foreach ($data as  $value) {
           //  $cart =  CartModel::where('id_order', $value->id )->get();
           $cart =  DB::table('tb_cart')
-          ->select(DB::raw('tb_cart.*'), 'tb_produk.nama', 'tb_produk.gambsar')
+          ->select(DB::raw('tb_cart.*'), 'tb_produk.nama', 'tb_produk.gambar')
           ->leftJoin('tb_produk', 'tb_produk.id', '=', 'tb_cart.id_produk')
           ->where('tb_cart.id_order', '=', $value->id)
           ->get();
