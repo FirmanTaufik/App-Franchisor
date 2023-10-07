@@ -137,4 +137,12 @@ interface ApiService {
     @GET("order/{id}")
     suspend fun getOrder(@Path("id") id: Int?,
                       ): Response<OrderModel>
+
+
+    @FormUrlEncoded
+    @POST("updateStatusOrder/{id}")
+    suspend fun updateStatusOrder(
+        @Path("id") id: Int?,
+        @Field("status") status: Int?,
+    ): Response<String>
 }

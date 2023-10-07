@@ -14,6 +14,8 @@ data class OrderModel(
         @SerializedName("tanggal"       ) var tanggal      : String?         = null,
         @SerializedName("id_franchisee" ) var idFranchisee : Int?            = null,
         @SerializedName("nama_pembeli"  ) var namaPembeli  : String?         = null,
+        @SerializedName("no_hp"  ) var noHp  : String?         = null,
+        @SerializedName("alamat"  ) var alamat  : String?         = null,
         @SerializedName("status"        ) var status       : Int?            = null,
         @SerializedName("created_at"    ) var createdAt    : String?         = null,
         @SerializedName("updated_at"    ) var updatedAt    : String?         = null,

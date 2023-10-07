@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">App Franchisor</string>
-    <string name="base_url">http://192.168.100.8:8000</string>
+    <string name="base_url">http://192.168.8.171:8000</string>
 </resources>

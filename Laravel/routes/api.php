@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //order
     Route::get('/order/{id}', [OrderController::class, 'index'])->name('order');
     Route::post('/createOrder', [OrderController::class, 'create'])->name('createOrder');
+    Route::post('/updateStatusOrder/{id}', [OrderController::class, 'updateStatusOrder'])->name('updateStatusOrder');
 
     //franchisee
     Route::get('/pesanProduk', [FranchiseeController::class, 'pesanProduk'])->name('pesanProduk');

@@ -25,6 +25,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.franchisee.ui.FranchiseeDataMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.franchisee.ui.FranchiseeDetailPesananActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.franchisee.ui.FranchiseeInputTransaksiActivity"
             android:exported="false" />
         <activity

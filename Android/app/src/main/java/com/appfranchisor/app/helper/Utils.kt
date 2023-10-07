@@ -536,4 +536,12 @@ object Utils {
         }
 
     }
+
+    fun Int.convertStatus():String{
+        return when(this){
+            0->"Cancel"
+            1->"On Proses"
+            else -> "Delivered"
+        }
+    }
 }

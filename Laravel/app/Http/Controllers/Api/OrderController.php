@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
 
+    function updateStatusOrder( Request $request,$id)   {
+        $data = OrderModel::find($id);
+        $data->status = $request->status; 
+        $data->save();
+
+        return response()->json([
+            'message' => 'succes',
+        ], 200);
+    }
 
     function index($id)  {
         $data = OrderModel::where('id_franchisee', $id)
