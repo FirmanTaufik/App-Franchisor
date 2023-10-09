@@ -7,11 +7,13 @@ import com.appfranchisor.app.R
 import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.FranchiseeActivityDataMainBinding
 import com.appfranchisor.app.helper.PreferenceHelper
+import com.appfranchisor.app.helper.Utils.addDropdown
 import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.franchisee.FranchiseeVM
+import com.appfranchisor.app.ui.franchisor.FranchiseeModel
 
 class FranchiseeDataMainActivity : MainActivity() {
     private lateinit var binding :FranchiseeActivityDataMainBinding
@@ -22,13 +24,41 @@ class FranchiseeDataMainActivity : MainActivity() {
         setContentView(binding.root)
         viewModel =   ViewModelProvider(this)[FranchiseeVM:: class.java]
 
+        initUI()
         initOnClick()
     }
 
+    private fun initUI() {
+        viewModel.franchisee().observe(this) {
+            when(it) {
+                is ApiResponse.Success ->{
+                    val data = it.item?.data!!.find { it.id == PreferenceHelper.getUserId(this) }
+                    if (data != null) {
+                        setUIEditText(data)
+                    }
+                }
+                else ->Unit
+            }
+        }
+    }
+    private fun setUIEditText(data: FranchiseeModel.Data) {
+        binding.apply {
+            editTextUsername.setText( data.username)
+            editTextPassword.setText( data.password)
+            editTextPemilik.setText( data.pemilik)
+            editTextAlamat.setText( data.alamat)
+            editTextNomorTelpon.setText( data.nomorTelponOutlet.toString())
+            editTextPic.setText( data.pic)
+            editTextNomorPic.setText( data.nomorPic)
+            editTextEmail.setText( data.email)
+            editTextId.setText( data.id.toString())
+        }
+    }
     private fun initOnClick() {
         binding.apply {
+            buttonBack.setOnClickListener { finish() }
             buttonSimpan.setOnClickListener {
-                if (isValidateInput()) {
+               if (isValidateInput()) {
                     viewModel.updateUser(
                         PreferenceHelper.getUserId(this@FranchiseeDataMainActivity)!!,
                         editTextUsername.text.toString(),
@@ -47,6 +77,7 @@ class FranchiseeDataMainActivity : MainActivity() {
                                 val response = it.item!!
                                 response.message?.showAsToast()
                                 clearInput()
+                                initUI()
                             }
                             is ApiResponse.Error ->{
                                 it.message.showAsToast()

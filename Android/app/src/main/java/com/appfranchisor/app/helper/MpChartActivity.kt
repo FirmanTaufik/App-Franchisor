@@ -2,10 +2,19 @@ package com.appfranchisor.app.helper
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import com.appfranchisor.app.R
+import com.appfranchisor.app.api.ApiResponse
+import com.appfranchisor.app.data.FilterOrderModel
 import com.appfranchisor.app.databinding.MpchartActivityBinding
+import com.appfranchisor.app.helper.Utils.showAsToast
+import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.franchisee.model.OrderModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -22,15 +31,17 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 open class MpChartActivity : AppCompatActivity() {
 
-    private lateinit var binding : MpchartActivityBinding
+    val viewModel: MasterVM by viewModels()
+    lateinit var binding: MpchartActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= MpchartActivityBinding.inflate(layoutInflater)
+        binding = MpchartActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initUIHorizontalBar( )
         setUpLineChart()
+        binding.buttonBack.setOnClickListener { finish() }
     }
+
 
     private fun setUpLineChart() {
         with(binding.lineChart) {
@@ -61,7 +72,7 @@ open class MpChartActivity : AppCompatActivity() {
         weekOneSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekOneSales.color = ContextCompat.getColor(this, R.color.colorGray)
         weekOneSales.valueTextColor = ContextCompat.getColor(this, R.color.colorGray)
-       // weekOneSales.enableDashedLine(20F, 10F, 0F)
+        // weekOneSales.enableDashedLine(20F, 10F, 0F)
 
         val weekTwoSales = LineDataSet(week2, "Week 2")
         weekTwoSales.lineWidth = 3f
@@ -69,7 +80,7 @@ open class MpChartActivity : AppCompatActivity() {
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(this, R.color.blueLinceCart)
         weekTwoSales.valueTextColor = ContextCompat.getColor(this, R.color.blueLinceCart)
-     //   weekTwoSales.enableDashedLine(20F, 10F, 0F)
+        //   weekTwoSales.enableDashedLine(20F, 10F, 0F)
 
 
         val dataSet = ArrayList<ILineDataSet>()
@@ -82,8 +93,9 @@ open class MpChartActivity : AppCompatActivity() {
         binding.lineChart.invalidate()
     }
 
-    private fun initUIHorizontalBar(){
-        val skillRatingChart = binding.horizontalChart              //skill_rating_chart is the id of the XML layout
+    fun initUIHorizontalBar(listName: List<String?>?) {
+        val skillRatingChart =
+            binding.horizontalChart              //skill_rating_chart is the id of the XML layout
 
         skillRatingChart.setDrawBarShadow(false)
         val description = Description()
@@ -112,8 +124,9 @@ open class MpChartActivity : AppCompatActivity() {
         xAxis.setLabelCount(5)
 
 //Now add the labels to be added on the vertical axis
-        val values = arrayOf("Ayam Bakar", "Ayam Goreng", "Ayam Moza", "Kulit Ayam", "Ayam Geprek")
-        xAxis.valueFormatter = XAxisValueFormatter(values)
+        if (listName != null) {
+            xAxis.valueFormatter = XAxisValueFormatter(listName.toTypedArray())
+        }
         val yRight = skillRatingChart.axisRight
         yRight.setDrawAxisLine(true)
         yRight.setDrawGridLines(false)
@@ -123,12 +136,12 @@ open class MpChartActivity : AppCompatActivity() {
         skillRatingChart.animateY(2000)
     }
 
-      fun setDataHorizontalBar(entries: ArrayList<BarEntry>) {
+    fun setDataHorizontalBar(entries: ArrayList<BarEntry>) {
 
         //Note : These entries can be replaced by real-time data, say, from an API
         val barDataSet = BarDataSet(entries, "Bar Data Set")
 
-        binding.horizontalChart  .setDrawBarShadow(true)
+        binding.horizontalChart.setDrawBarShadow(true)
         barDataSet.barShadowColor = Color.argb(40, 150, 150, 150)
         barDataSet.color = Color.GREEN
         val data = BarData(barDataSet)
@@ -139,7 +152,53 @@ open class MpChartActivity : AppCompatActivity() {
         data.barWidth = 0.9f
 
         //Finally set the data and refresh the graph
-        binding.horizontalChart  .data = data
-        binding.horizontalChart  .invalidate()
+        binding.horizontalChart.data = data
+        binding.horizontalChart.invalidate()
+    }
+
+    val responseTerlaris: (ApiResponse<out FilterOrderModel?>) -> Unit = {
+        when (it) {
+            is ApiResponse.Success -> {
+                val listName = it.item?.data?.map { it.nama }?.reversed()
+                val listSell = it.item?.data?.map { it.terjual }?.reversed()
+                initUIHorizontalBar(listName)
+                initDataHorizontalBar(listSell)
+            }
+
+            is ApiResponse.Error -> {
+                it.message.showAsToast()
+            }
+
+            else -> {
+            }
+        }
+    }
+
+    private fun initDataHorizontalBar(listSell: List<String?>?) {
+        val entries = ArrayList<BarEntry>()
+
+        listSell?.forEachIndexed { index, value ->
+            if (value != null) {
+                entries.add(BarEntry(index.toFloat(), value.toFloat()))
+            }
+        }
+        setDataHorizontalBar(entries)
+    }
+
+
+    fun showPopUp(view: View, onSelect: (Int) -> Unit) {
+        val popupMenu = PopupMenu(this, view)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.sort_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+
+            if (item != null) {
+                onSelect(item.itemId)
+            }
+
+            true
+        })
+
+        popupMenu.show()
     }
 }

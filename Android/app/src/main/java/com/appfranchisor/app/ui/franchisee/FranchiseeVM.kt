@@ -61,9 +61,22 @@ class FranchiseeVM  @Inject constructor(private val apiService: ApiService) : Vi
         emit(ApiResponse.Error( it.message!!))
     }.asLiveData(viewModelScope.coroutineContext)
 
+
+    fun franchisee(
+    )= flow {
+        emit(ApiResponse.Loading)
+        val response = apiService.franchisee(  )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+
     fun updateUser(
         id:Int,
-        id_franchisor: Int,
         username: String,
         password: String,
         pemilik: String,
@@ -75,7 +88,7 @@ class FranchiseeVM  @Inject constructor(private val apiService: ApiService) : Vi
     )= flow {
         emit(ApiResponse.Loading)
         val response = apiService.updateFranchisee(
-            id,  id_franchisor, username, password, pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
+            id,   username, password, pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
 
         )
         if (response.code()==200){

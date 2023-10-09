@@ -31,6 +31,9 @@ class FranchiseeMainActivity : MainActivity() {
         binding.apply {
             buttonInputDataTransaksi.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeInputTransaksiActivity::class.java))  }
             buttonStatusPesanan.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeStatusPesananActivity::class.java))  }
+            buttonDataFranchisee.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeDataMainActivity::class.java))  }
+            buttonDashboard.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeDashboardActivity::class.java))  }
+
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@FranchiseeMainActivity, title = "Butuh Konfirmasi",
                     message =  "Apakah Yakin Mau logout?",

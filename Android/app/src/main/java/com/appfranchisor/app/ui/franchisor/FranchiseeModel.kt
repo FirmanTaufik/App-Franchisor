@@ -7,10 +7,11 @@ data class FranchiseeModel  (
     @SerializedName("data"    ) var data    : ArrayList<Data> = arrayListOf()
 ){
     data class Data (
-
         @SerializedName("id"                  ) var id                : Int?    = null,
-        @SerializedName("username"             ) var username           : String? = null,
-        @SerializedName("password"             ) var password           : String? = null,
+        @SerializedName("id_franchisor"       ) var idFranchisor      : Int?    = null,
+        @SerializedName("username"            ) var username          : String? = null,
+        @SerializedName("password"            ) var password          : String? = null,
+        @SerializedName("role"                ) var role              : Int?    = null,
         @SerializedName("pemilik"             ) var pemilik           : String? = null,
         @SerializedName("email"               ) var email             : String? = null,
         @SerializedName("alamat"              ) var alamat            : String? = null,

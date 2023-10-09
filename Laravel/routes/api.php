@@ -56,6 +56,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/order/{id}', [OrderController::class, 'index'])->name('order');
     Route::post('/createOrder', [OrderController::class, 'create'])->name('createOrder');
     Route::post('/updateStatusOrder/{id}', [OrderController::class, 'updateStatusOrder'])->name('updateStatusOrder');
+    Route::get('/filterOrder', [OrderController::class, 'filter'])->name('filterOrder');
+    Route::get('/terlaris/{id}', [OrderController::class, 'terlaris'])->name('terlaris');
+    Route::get('/pendapatan/{id}', [OrderController::class, 'pendapatan'])->name('pendapatan');
 
     //franchisee
     Route::get('/pesanProduk', [FranchiseeController::class, 'pesanProduk'])->name('pesanProduk');

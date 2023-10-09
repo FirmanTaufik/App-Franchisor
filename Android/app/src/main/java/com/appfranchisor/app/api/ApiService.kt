@@ -1,5 +1,6 @@
 package com.appfranchisor.app.api
 
+import com.appfranchisor.app.data.FilterOrderModel
 import com.appfranchisor.app.data.KategoriModel
 import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
@@ -18,6 +19,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface ApiService {
@@ -97,6 +99,20 @@ interface ApiService {
         @Field("nomor_pic") nomor_pic: String?,
     ) : Response<ResponseModel>
 
+    @FormUrlEncoded
+    @POST("updateFranchisee/{id}")
+    suspend fun updateFranchisee(
+        @Path("id") id: Int,
+        @Field("username") username: String?,
+        @Field("password") password: String?,
+        @Field("pemilik") nama: String?,
+        @Field("email") email: String?,
+        @Field("alamat") alamat: String?,
+        @Field("nomor_telpon_outlet") nomor_telpon_outlet: String?,
+        @Field("pic") pic: String?,
+        @Field("nomor_pic") nomor_pic: String?,
+    ) : Response<ResponseModel>
+
     @GET("franchisee")
     suspend fun franchisee( ) : Response<FranchiseeModel>
 
@@ -145,4 +161,23 @@ interface ApiService {
         @Path("id") id: Int?,
         @Field("status") status: Int?,
     ): Response<String>
+
+
+
+    @GET("filterOrder")
+    suspend fun filterOrder(  ): Response<FilterOrderModel>
+
+    @GET("filterOrder")
+    suspend fun filterOrder(
+        @Query("dari") dari: String?,
+        @Query("hingga") hingga: String?,
+        ): Response<FilterOrderModel>
+
+
+    @GET("terlaris/{id}")
+    suspend fun terlaris(
+        @Path("id") id: Int?,
+        @Query("dari") dari: String?,
+        @Query("hingga") hingga: String?,
+    ): Response<FilterOrderModel>
 }
