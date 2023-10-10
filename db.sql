@@ -16,7 +16,6 @@
 
 
 -- Dumping database structure for db_franchisor
-DROP DATABASE IF EXISTS `db_franchisor`;
 CREATE DATABASE IF NOT EXISTS `db_franchisor` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `db_franchisor`;
 
@@ -43,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.migrations: ~11 rows (approximately)
+-- Dumping data for table db_franchisor.migrations: ~12 rows (approximately)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(2, '2014_10_12_000000_create_users_table', 1),
 	(3, '2014_10_12_100000_create_password_reset_tokens_table', 1),
@@ -57,7 +56,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(9, '2023_09_27_145717_create_kategori_models_table', 1),
 	(11, '2023_10_02_085413_add_id_franchisor_to_tb_produk', 1),
 	(14, '2023_10_02_091755_create_cart_models_table', 2),
-	(16, '2023_09_27_150903_create_order_models_table', 3);
+	(16, '2023_09_27_150903_create_order_models_table', 3),
+	(21, '2023_10_05_222636_add_column_to_tb_order', 4);
 
 -- Dumping structure for table db_franchisor.password_reset_tokens
 DROP TABLE IF EXISTS `password_reset_tokens`;
@@ -86,12 +86,12 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table db_franchisor.personal_access_tokens: ~2 rows (approximately)
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-	(1, 'App\\Models\\User', 1, 'auth_token', '998aa63d8179d9a4909a657029423571595bf82f5cb04a8d638af4915f4a89a1', '["*"]', '2023-10-05 13:44:07', NULL, '2023-10-02 02:15:52', '2023-10-05 13:44:07'),
-	(6, 'App\\Models\\FranchiseeModel', 1, 'auth_token', '054c540a8c9d0ce06a29c5a951c213935c9952736b24e203482355cef214f83c', '["*"]', '2023-10-05 14:21:37', NULL, '2023-10-03 07:21:14', '2023-10-05 14:21:37');
+	(1, 'App\\Models\\User', 1, 'auth_token', '998aa63d8179d9a4909a657029423571595bf82f5cb04a8d638af4915f4a89a1', '["*"]', '2023-10-10 15:45:42', NULL, '2023-10-02 02:15:52', '2023-10-10 15:45:42'),
+	(12, 'App\\Models\\FranchiseeModel', 1, 'auth_token', '451d1647132361d553a130c95d2b6694575ac57c66b166da774a7092a0a2ea14', '["*"]', '2023-10-10 15:47:34', NULL, '2023-10-10 15:40:29', '2023-10-10 15:47:34');
 
 -- Dumping structure for table db_franchisor.tb_aplikator
 DROP TABLE IF EXISTS `tb_aplikator`;
@@ -124,9 +124,9 @@ CREATE TABLE IF NOT EXISTS `tb_cart` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_cart: ~8 rows (approximately)
+-- Dumping data for table db_franchisor.tb_cart: ~14 rows (approximately)
 INSERT INTO `tb_cart` (`id`, `id_order`, `id_produk`, `qty`, `harga`, `created_at`, `updated_at`) VALUES
 	(28, 19, 9, 2, 30000, '2023-10-05 06:09:44', '2023-10-05 06:09:44'),
 	(29, 19, 10, 2, 23000, '2023-10-05 06:09:44', '2023-10-05 06:09:44'),
@@ -135,7 +135,16 @@ INSERT INTO `tb_cart` (`id`, `id_order`, `id_produk`, `qty`, `harga`, `created_a
 	(32, 21, 9, 2, 30000, '2023-10-05 06:18:49', '2023-10-05 06:18:49'),
 	(33, 22, 10, 6, 23000, '2023-10-05 06:19:17', '2023-10-05 06:19:17'),
 	(34, 22, 9, 2, 30000, '2023-10-05 06:19:17', '2023-10-05 06:19:17'),
-	(35, 23, 4, 2, 21000000, '2023-10-05 13:24:37', '2023-10-05 13:24:37');
+	(35, 23, 4, 2, 21000000, '2023-10-05 13:24:37', '2023-10-05 13:24:37'),
+	(36, 24, 1, 10, 5000, '2023-10-05 15:41:39', '2023-10-05 15:41:39'),
+	(37, 25, 1, 10, 5000, '2023-10-05 15:42:28', '2023-10-05 15:42:28'),
+	(38, 26, 1, 10, 5000, '2023-10-05 15:45:14', '2023-10-05 15:45:14'),
+	(39, 27, 10, 3, 23000, '2023-10-06 15:28:13', '2023-10-06 15:28:13'),
+	(40, 27, 9, 2, 30000, '2023-10-06 15:28:13', '2023-10-06 15:28:13'),
+	(41, 27, 4, 2, 21000000, '2023-10-06 15:28:13', '2023-10-06 15:28:13'),
+	(42, 28, 8, 2, 40000, '2023-10-07 13:40:44', '2023-10-07 13:40:44'),
+	(43, 29, 9, 2, 30000, '2023-10-10 15:44:22', '2023-10-10 15:44:22'),
+	(44, 29, 11, 3, 23000, '2023-10-10 15:44:22', '2023-10-10 15:44:22');
 
 -- Dumping structure for table db_franchisor.tb_franchisee
 DROP TABLE IF EXISTS `tb_franchisee`;
@@ -154,11 +163,12 @@ CREATE TABLE IF NOT EXISTS `tb_franchisee` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_franchisee: ~1 rows (approximately)
+-- Dumping data for table db_franchisor.tb_franchisee: ~0 rows (approximately)
 INSERT INTO `tb_franchisee` (`id`, `id_franchisor`, `username`, `password`, `role`, `pemilik`, `email`, `alamat`, `nomor_telpon_outlet`, `pic`, `nomor_pic`, `created_at`, `updated_at`) VALUES
-	(1, 2, 'franchisee', '$2y$10$Ar/Mva7cyoZfWB2gC6tTHeh7BfHKtTGYqWFWwEQM3HKOIvMgU2PGS', 3, 'pemilik', 'j@gmail.com', 'alamat e', 888, 'pic', '245', '2023-10-02 08:48:14', '2023-10-02 08:50:38');
+	(1, 2, 'franchisee', '$2y$10$Ar/Mva7cyoZfWB2gC6tTHeh7BfHKtTGYqWFWwEQM3HKOIvMgU2PGS', 3, 'pemilik er', 'j@gmail.com', 'alamat e', 888, 'pic', '245', '2023-10-02 08:48:14', '2023-10-10 06:05:11'),
+	(2, 2, 'franchisee2', '$2y$10$Ar/Mva7cyoZfWB2gC6tTHeh7BfHKtTGYqWFWwEQM3HKOIvMgU2PGS', 3, 'pemilik er2', 'j2@gmail.com', 'alamat e2', 8880015, 'pic2', '245123', '2023-10-02 08:48:14', '2023-10-09 01:52:28');
 
 -- Dumping structure for table db_franchisor.tb_franchisor
 DROP TABLE IF EXISTS `tb_franchisor`;
@@ -177,11 +187,12 @@ CREATE TABLE IF NOT EXISTS `tb_franchisor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_franchisor: ~0 rows (approximately)
+-- Dumping data for table db_franchisor.tb_franchisor: ~2 rows (approximately)
 INSERT INTO `tb_franchisor` (`id`, `id_aplikator`, `username`, `password`, `role`, `pemilik`, `email`, `alamat`, `nomor_telpon_outlet`, `pic`, `nomor_pic`, `created_at`, `updated_at`) VALUES
-	(2, 1, 'franchisor', '$2y$10$IFVrVt.wKMARVlPtYxIFbuKWfEMX1z12xatqFcmTnWxBmgToFumji', 2, 'pemilik', 'g@gmail.com', 'alamat', 885555, 'pic', '1234', '2023-10-02 08:32:46', '2023-10-02 08:46:59');
+	(2, 1, 'franchisor', '$2y$10$IFVrVt.wKMARVlPtYxIFbuKWfEMX1z12xatqFcmTnWxBmgToFumji', 2, 'pemilik', 'g@gmail.com', 'alamat', 885555, 'pic', '1234', '2023-10-02 08:32:46', '2023-10-02 08:46:59'),
+	(3, 1, 'franchiso2r', '$2y$10$IFVrVt.wKMARVlPtYxIFbuKWfEMX1z12xatqFcmTnWxBmgToFumji', 2, 'pemilik2', 'g2@gmail.com', 'alamat2', 88555513, 'pic2', '1234455', '2023-10-02 08:32:46', '2023-10-02 08:46:59');
 
 -- Dumping structure for table db_franchisor.tb_kategori
 DROP TABLE IF EXISTS `tb_kategori`;
@@ -194,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `tb_kategori` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_kategori: ~4 rows (approximately)
+-- Dumping data for table db_franchisor.tb_kategori: ~3 rows (approximately)
 INSERT INTO `tb_kategori` (`id`, `nama`, `gambar`, `created_at`, `updated_at`) VALUES
 	(1, 'Bahan Baku', '20231003153048.png', '2023-10-03 08:30:48', '2023-10-03 08:30:48'),
 	(2, 'Chicken', '20231003153147.png', '2023-10-03 08:31:47', '2023-10-03 08:31:47'),
@@ -208,19 +219,27 @@ CREATE TABLE IF NOT EXISTS `tb_order` (
   `tanggal` date NOT NULL,
   `id_franchisee` int NOT NULL,
   `nama_pembeli` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_hp` bigint NOT NULL DEFAULT '0',
+  `alamat` text COLLATE utf8mb4_unicode_ci,
   `status` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_order: ~5 rows (approximately)
-INSERT INTO `tb_order` (`id`, `tanggal`, `id_franchisee`, `nama_pembeli`, `status`, `created_at`, `updated_at`) VALUES
-	(19, '2023-10-05', 1, 'tesnama', 1, '2023-10-05 06:09:44', '2023-10-05 06:09:44'),
-	(20, '2023-10-05', 1, 'tesnama', 1, '2023-10-05 06:10:13', '2023-10-05 06:10:13'),
-	(21, '2023-10-05', 1, 'tesnama', 1, '2023-10-05 06:18:49', '2023-10-05 06:18:49'),
-	(22, '2023-10-05', 1, 'tesnama', 1, '2023-10-05 06:19:17', '2023-10-05 06:19:17'),
-	(23, '2023-10-05', 1, 'tesnama', 1, '2023-10-05 13:24:37', '2023-10-05 13:24:37');
+-- Dumping data for table db_franchisor.tb_order: ~10 rows (approximately)
+INSERT INTO `tb_order` (`id`, `tanggal`, `id_franchisee`, `nama_pembeli`, `no_hp`, `alamat`, `status`, `created_at`, `updated_at`) VALUES
+	(19, '2022-10-05', 1, 'tesnama', 0, NULL, 1, '2023-10-05 06:09:44', '2023-10-05 06:09:44'),
+	(20, '2023-10-05', 1, 'tesnama', 0, NULL, 1, '2023-10-05 06:10:13', '2023-10-05 06:10:13'),
+	(21, '2023-10-05', 1, 'tesnama', 0, NULL, 1, '2023-10-05 06:18:49', '2023-10-05 06:18:49'),
+	(22, '2023-10-05', 1, 'tesnama', 0, NULL, 1, '2023-10-05 06:19:17', '2023-10-05 06:19:17'),
+	(23, '2023-10-05', 1, 'tesnama', 0, NULL, 1, '2023-10-05 13:24:37', '2023-10-05 13:24:37'),
+	(24, '2023-10-02', 1, 'nama_pembeli', 0, NULL, 1, '2023-10-05 15:41:39', '2023-10-05 15:41:39'),
+	(25, '2023-10-02', 1, 'nama_pembeli', 0, NULL, 1, '2023-10-05 15:42:27', '2023-10-05 15:42:27'),
+	(26, '2023-10-02', 1, 'nama_pembeli', 835454545, 'dadadagfg hhfh', 1, '2023-10-05 15:45:14', '2023-10-05 15:45:14'),
+	(27, '2023-10-06', 1, 'a', 82585, 'yfucuf', 1, '2023-10-06 15:28:13', '2023-10-07 14:09:31'),
+	(28, '2023-10-10', 1, 'g', 6, 'h', 2, '2023-10-07 13:40:44', '2023-10-07 14:10:26'),
+	(29, '2023-10-10', 1, 'vg', 88, 'fgg', 2, '2023-10-10 15:44:22', '2023-10-10 15:44:36');
 
 -- Dumping structure for table db_franchisor.tb_produk
 DROP TABLE IF EXISTS `tb_produk`;
@@ -234,20 +253,22 @@ CREATE TABLE IF NOT EXISTS `tb_produk` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table db_franchisor.tb_produk: ~10 rows (approximately)
+-- Dumping data for table db_franchisor.tb_produk: ~12 rows (approximately)
 INSERT INTO `tb_produk` (`id`, `id_franchisor`, `id_kategori`, `nama`, `harga`, `gambar`, `created_at`, `updated_at`) VALUES
-	(1, 1, 2, 'Ayam Kakas', 5000000, '20231002091611.png', '2023-10-02 02:16:11', '2023-10-02 02:16:11'),
-	(2, 2, 2, 'prod', 5000000, '20231002164118.jpg', '2023-10-02 09:41:18', '2023-10-02 09:41:18'),
-	(3, 1, 3, 'Kompor Mawar', 7000000, '20231004143421.png', '2023-10-04 07:34:21', '2023-10-04 07:34:21'),
-	(4, 1, 3, 'Deep Fryer', 21000000, '20231004143507.png', '2023-10-04 07:35:07', '2023-10-04 07:35:07'),
-	(5, 1, 3, 'Rice Cooker', 1100000, '20231004143558.png', '2023-10-04 07:35:58', '2023-10-04 07:35:58'),
-	(6, 1, 3, 'Pemanggang', 1950000, '20231004143617.png', '2023-10-04 07:36:17', '2023-10-04 07:36:17'),
-	(7, 1, 2, 'Ayam Fillet Paha', 1950, '20231004144557.png', '2023-10-04 07:45:57', '2023-10-04 07:45:57'),
-	(8, 1, 2, 'Ayam Fillet Dada', 40000, '20231004144626.png', '2023-10-04 07:46:26', '2023-10-04 07:46:26'),
-	(9, 1, 1, 'Kecap Manis Bango', 30000, '20231004144709.png', '2023-10-04 07:47:09', '2023-10-04 07:47:09'),
-	(10, 1, 1, 'Minyak Goreng', 23000, '20231004144731.png', '2023-10-04 07:47:31', '2023-10-04 07:47:31');
+	(1, 2, 2, 'Ayam Kakas', 5000000, '20231002091611.png', '2023-10-02 02:16:11', '2023-10-02 02:16:11'),
+	(2, 2, 2, 'prodvu', 5000000, '20231010223148.jpg', '2023-10-02 09:41:18', '2023-10-10 15:31:48'),
+	(3, 2, 3, 'Kompor Mawar', 7000000, '20231004143421.png', '2023-10-04 07:34:21', '2023-10-04 07:34:21'),
+	(4, 2, 3, 'Deep Fryer', 21000000, '20231004143507.png', '2023-10-04 07:35:07', '2023-10-04 07:35:07'),
+	(5, 2, 3, 'Rice Cooker', 1100000, '20231004143558.png', '2023-10-04 07:35:58', '2023-10-04 07:35:58'),
+	(6, 2, 3, 'Pemanggang', 1950000, '20231004143617.png', '2023-10-04 07:36:17', '2023-10-04 07:36:17'),
+	(7, 2, 2, 'Ayam Fillet Paha', 1950, '20231004144557.png', '2023-10-04 07:45:57', '2023-10-04 07:45:57'),
+	(8, 2, 2, 'Ayam Fillet Dada', 40000, '20231004144626.png', '2023-10-04 07:46:26', '2023-10-04 07:46:26'),
+	(9, 2, 1, 'Kecap Manis Bango', 30000, '20231004144709.png', '2023-10-04 07:47:09', '2023-10-04 07:47:09'),
+	(10, 2, 1, 'Minyak Goreng', 23000, '20231004144731.png', '2023-10-04 07:47:31', '2023-10-04 07:47:31'),
+	(11, 2, 1, 'Minyak Goreng', 23000, '20231009074519.png', '2023-10-09 00:45:19', '2023-10-09 00:45:19'),
+	(12, 2, 2, 'prod edd', 5000000, '20231010221707.jpg', '2023-10-10 15:17:07', '2023-10-10 15:17:07');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //pproduk
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
     Route::post('/createProduk', [ProdukController::class, 'create'])->name('createProduk');
+    Route::post('/updateProduk', [ProdukController::class, 'updateProduk'])->name('updateProduk');
 
     //order
     Route::get('/order/{id}', [OrderController::class, 'index'])->name('order');
