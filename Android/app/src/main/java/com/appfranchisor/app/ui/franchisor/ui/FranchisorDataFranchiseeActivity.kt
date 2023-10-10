@@ -27,6 +27,7 @@ class FranchisorDataFranchiseeActivity : MainActivity() {
 
     private fun initOnClick() {
         binding.apply {
+            buttonBack.setOnClickListener { finish() }
             buttonSimpan.setOnClickListener {
                 if (isValidateInput()) {
                     viewmodel.postUser(

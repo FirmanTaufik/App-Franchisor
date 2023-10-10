@@ -36,7 +36,7 @@ class FranchisorMainActivity : MainActivity() {
             buttonDashboard.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDashboardActivity::class.java)) }
             buttonInputProduk.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorInputProdukActivity::class.java)) }
             buttonTransaksiFranchisee.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, TransaksiActivity::class.java))  }
-
+            daftarProduk.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDaftarProdukActivity::class.java))  }
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@FranchisorMainActivity, title = "Butuh Konfirmasi",
                     message =  "Apakah Yakin Mau logout?",

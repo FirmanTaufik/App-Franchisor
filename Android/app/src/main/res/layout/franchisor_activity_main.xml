@@ -119,14 +119,13 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:visibility="gone"
-            android:id="@+id/button_input_menu"
+            android:id="@+id/daftar_produk"
             android:layout_width="180dp"
             android:layout_height="70dp"
             android:layout_above="@+id/relative_botom"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
-            android:text="Input Menu"
+            android:text="Daftar Produk"
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             app:cornerRadius="50dp" />

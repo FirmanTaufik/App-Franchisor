@@ -74,7 +74,6 @@
                    android:textStyle="bold"
                    android:textSize="23dp"
                    android:textColor="#DFA308"
-                   android:text="Rp 3260k"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"/>
            </LinearLayout>

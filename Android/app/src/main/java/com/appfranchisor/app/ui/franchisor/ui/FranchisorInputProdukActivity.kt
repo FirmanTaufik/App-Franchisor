@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import com.appfranchisor.app.R
 import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.FranchisorActivityInputProdukBinding
@@ -18,8 +19,10 @@ import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
+import com.appfranchisor.app.ui.franchisee.model.DaftarProduk
 import com.appfranchisor.app.ui.franchisor.FranchisorVM
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.gson.Gson
 
 class FranchisorInputProdukActivity : MainActivity() {
     private var idKategori = 0
@@ -33,6 +36,22 @@ class FranchisorInputProdukActivity : MainActivity() {
         initKategori()
         initOnClick()
         onResult()
+        if (intent.hasExtra("gson")) {
+            initEdit()
+        }
+    }
+
+    private fun initEdit() {
+        val data = Gson().fromJson(intent.getStringExtra("gson"), DaftarProduk.Data::class.java)
+        with(binding){
+            idKategori = data.idKategori!!
+            inputKategori.editText?.setText(data.namaKategori)
+            inputHarga.editText?.setText(data.harga.toString())
+            inputNama.editText?.setText(data.nama)
+            imageUpload = "${resources.getString(R.string.base_url)}/imageproduct/${data.gambar!!}".toUri()
+            Utils.loadImage(this@FranchisorInputProdukActivity, imageUpload.toString(),imageView)
+
+        }
     }
 
     private fun initKategori() {
@@ -76,24 +95,12 @@ class FranchisorInputProdukActivity : MainActivity() {
             buttomSimpan.setOnClickListener {
                if ( validateInput()) {
                    showDialog(true)
-                   viewmodel.postProduk(
-                       PreferenceHelper.getUserId(this@FranchisorInputProdukActivity)!!,
-                       idKategori, binding.inputNama.editText?.text.toString(),
-                       binding.inputHarga.editText?.text.toString(),
-                       imageUpload!!,
-                   ).observe(this@FranchisorInputProdukActivity){
-                       showDialog(false)
-                       when(it) {
-                           is ApiResponse.Success ->{
-                               "sukses menambahkan".showAsToast()
-                               finish()
-                           }
-                           is ApiResponse.Error ->{
-                               it.message.showAsToast()
-                           }
-                           else -> Unit
-                       }
+                   if (intent.hasExtra("gson")) {
+                       updateProduk()
+                   }else{
+                       postProduk()
                    }
+
                }
             }
             buttonGambar.setOnClickListener {
@@ -104,6 +111,70 @@ class FranchisorInputProdukActivity : MainActivity() {
         }
     }
 
+    private fun updateProduk()  {
+        val data = Gson().fromJson(intent.getStringExtra("gson"), DaftarProduk.Data::class.java)
+        if (imageUpload.toString().startsWith("http")){
+            viewmodel.updateProduk(
+                data.id!!,
+                PreferenceHelper.getUserId(this@FranchisorInputProdukActivity)!!,
+                idKategori, binding.inputNama.editText?.text.toString(),
+                binding.inputHarga.editText?.text.toString()
+            ).observe(this@FranchisorInputProdukActivity){
+                showDialog(false)
+                when(it) {
+                    is ApiResponse.Success ->{
+                        "sukses menyimpan".showAsToast()
+                        finish()
+                    }
+                    is ApiResponse.Error ->{
+                        it.message.showAsToast()
+                    }
+                    else -> Unit
+                }
+            }
+        }else{
+            viewmodel.updateProduk(
+                data.id!!,
+                PreferenceHelper.getUserId(this@FranchisorInputProdukActivity)!!,
+                idKategori, binding.inputNama.editText?.text.toString(),
+                binding.inputHarga.editText?.text.toString(),
+                imageUpload!!,
+            ).observe(this@FranchisorInputProdukActivity){
+                showDialog(false)
+                when(it) {
+                    is ApiResponse.Success ->{
+                        "sukses menyimpan".showAsToast()
+                        finish()
+                    }
+                    is ApiResponse.Error ->{
+                        it.message.showAsToast()
+                    }
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun postProduk(){
+        viewmodel.postProduk(
+            PreferenceHelper.getUserId(this@FranchisorInputProdukActivity)!!,
+            idKategori, binding.inputNama.editText?.text.toString(),
+            binding.inputHarga.editText?.text.toString(),
+            imageUpload!!,
+        ).observe(this@FranchisorInputProdukActivity){
+            showDialog(false)
+            when(it) {
+                is ApiResponse.Success ->{
+                    "sukses menambahkan".showAsToast()
+                    finish()
+                }
+                is ApiResponse.Error ->{
+                    it.message.showAsToast()
+                }
+                else -> Unit
+            }
+        }
+    }
 
     private fun validateInput(): Boolean {
         binding.apply {

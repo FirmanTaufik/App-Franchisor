@@ -63,6 +63,7 @@ class FranchiseeInputTransaksiActivity : MainActivity() {
     }
 
     private fun initListCart() {
+        binding.textViewTotalHarga.text = 0.0.convertRupiah()
         if (PreferenceHelper.getCart(this)!=null){
             val listType = object : TypeToken<ArrayList<CartModel?>?>() {}.type
             val listCart:ArrayList<CartModel> = Gson().fromJson(PreferenceHelper.getCart(this),listType)

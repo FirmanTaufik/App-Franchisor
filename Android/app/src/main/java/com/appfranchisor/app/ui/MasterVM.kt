@@ -14,12 +14,17 @@ import javax.inject.Inject
 class MasterVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
     fun transaksi(id : Int?=null,dari : String?=null,hingga : String?=null) = flow {
+        println("transaksi $id $dari $hingga")
         emit(ApiResponse.Loading)
-        val response = if (id!=null)
-            if (dari == null && hingga==null)
+        val response = if (id!=null) {
+            if (dari == null && hingga==null) {
+                println("transaksi apiService.transaksi( id)")
                 apiService.transaksi( id)
-            else apiService.transaksi( id, dari, hingga)
-        else if (dari != null && hingga!=null)
+            }  else{
+                println("transaksi apiService.transaksi( id, dari, hingga)")
+                apiService.transaksi( id, dari, hingga)
+            }
+        }  else if (dari != null && hingga!=null)
             apiService.transaksi( dari, hingga)
          else   apiService.transaksi()
 

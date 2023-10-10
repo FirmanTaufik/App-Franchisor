@@ -22,6 +22,57 @@ import javax.inject.Inject
 @HiltViewModel
 class FranchisorVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
+    fun produk(id_franchisor:Int )= flow {
+        emit(ApiResponse.Loading)
+        val response = apiService.produk( id_franchisor )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+    fun updateProduk(id_produk:Int,id_franchisor:Int, id_kategori :Int,
+                   nama:String, harga:String, imageUri :Uri ) = flow {
+        emit(ApiResponse.Loading)
+
+        val file = java.io.File(Utils.getRealPathFromURIPath(imageUri!!, App.getContext()!!))
+        val requestFile: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val body: MultipartBody.Part = MultipartBody.Part.createFormData("gambar", file.name, requestFile)
+
+        val idFranchisor = id_franchisor.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val idKategori = id_kategori.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val nama = nama.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val harga = harga.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val idProduk = id_produk .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val response = apiService.updateProduk(idProduk,idFranchisor,  idKategori,nama,harga, body )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+    fun updateProduk(id_produk:Int,id_franchisor:Int, id_kategori :Int,
+                     nama:String, harga:String ) = flow {
+        emit(ApiResponse.Loading)
+
+        val idFranchisor = id_franchisor.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val idKategori = id_kategori.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val nama = nama.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val harga = harga.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val idProduk = id_produk .toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        val response = apiService.updateProduk(idProduk,idFranchisor,  idKategori,nama,harga )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+
 
     fun postProduk(id_franchisor:Int, id_kategori :Int,
                    nama:String, harga:String, imageUri :Uri) = flow {

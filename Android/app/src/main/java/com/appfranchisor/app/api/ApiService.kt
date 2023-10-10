@@ -6,6 +6,7 @@ import com.appfranchisor.app.data.PendapatanModel
 import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.data.TransaksiModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
+import com.appfranchisor.app.ui.franchisee.model.DaftarProduk
 import com.appfranchisor.app.ui.franchisee.model.OrderModel
 import com.appfranchisor.app.ui.franchisee.model.PesanProduk
 import com.appfranchisor.app.ui.franchisor.FranchiseeModel
@@ -143,17 +144,41 @@ interface ApiService {
         @Part image: MultipartBody.Part?
     ): Response<ResponseModel>
 
+    @Multipart
+    @POST("updateProduk")
+    suspend fun updateProduk(
+        @Part("id_produk") id_produk: RequestBody?,
+        @Part("id_franchisor") id_franchisor: RequestBody?,
+        @Part("id_kategori") id_kategori: RequestBody?,
+        @Part("nama") nama: RequestBody?,
+        @Part("harga") harga: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): Response<ResponseModel>
 
+
+    @Multipart
+    @POST("updateProduk")
+    suspend fun updateProduk(
+        @Part("id_produk") id_produk: RequestBody?,
+        @Part("id_franchisor") id_franchisor: RequestBody?,
+        @Part("id_kategori") id_kategori: RequestBody?,
+        @Part("nama") nama: RequestBody?,
+        @Part("harga") harga: RequestBody?
+    ): Response<ResponseModel>
 
     @GET("pesanProduk")
     suspend fun pesanProduk(): Response<PesanProduk>
 
+    @GET("produk")
+    suspend fun produk(
+        @Query("id_franchisor") id_franchisor: Int?,
+        ): Response<DaftarProduk>
 
     @FormUrlEncoded
     @POST("createOrder")
     suspend fun createOrder(
         @Field("tanggal") tanggal: String?,
-        @Field("id_franchisee") username: Int?,
+        @Field("id_franchisee") id_franchisee: Int?,
         @Field("nama_pembeli") nama_pembeli: String?,
         @Field("no_hp") no_hp: String?,
         @Field("alamat") alamat: String?,
@@ -209,21 +234,21 @@ interface ApiService {
 
     @GET("transaksi")
     suspend fun transaksi(
-        @Path("id_franchisee") id_franchisee: Int?,
+        @Query("id_franchisee") id_franchisee: Int?,
    ) : Response<TransaksiModel>
 
 
     @GET("transaksi")
     suspend fun transaksi(
-        @Path("id_franchisee") id_franchisee: Int?,
-        @Path("dari") dari: String?,
-        @Path("hingga") hingga: String?,
+        @Query("id_franchisee") id_franchisee: Int?,
+        @Query("dari") dari: String?,
+        @Query("hingga") hingga: String?,
     ) : Response<TransaksiModel>
 
     @GET("transaksi")
     suspend fun transaksi(
-        @Path("dari") dari: String?,
-        @Path("hingga") hingga: String?,
+        @Query("dari") dari: String?,
+        @Query("hingga") hingga: String?,
     ) : Response<TransaksiModel>
 
 }
