@@ -1,6 +1,5 @@
 package com.appfranchisor.app.ui.franchisor.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.appfranchisor.app.api.ApiResponse
@@ -27,7 +26,7 @@ class FranchisorDaftarFranchiseeActivity : MainActivity() {
     }
 
     private fun initUI() {
-        viewmodel.franchisee().observe(this) {
+        viewmodel.franchisee(PreferenceHelper.getUserId(this)).observe(this) {
             when(it) {
                 is ApiResponse.Success ->{
                     val list = it.item!!.data.map { it.pemilik }
@@ -57,6 +56,7 @@ class FranchisorDaftarFranchiseeActivity : MainActivity() {
 
     private fun initOnClick() {
         binding.apply {
+            buttonBack.setOnClickListener { finish() }
             buttonSimpan.setOnClickListener {
                 if (isValidateInput()) {
                     viewmodel.updateUser(
@@ -77,6 +77,7 @@ class FranchisorDaftarFranchiseeActivity : MainActivity() {
                                 binding.progressBar.hide()
                                 val response = it.item!!
                                 response.message?.showAsToast()
+                                finish()
                             }
                             is ApiResponse.Error ->{
                                 it.message.showAsToast()

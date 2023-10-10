@@ -4,12 +4,17 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.databinding.ActivityLoginBinding
+import com.appfranchisor.app.databinding.DialogFailedBinding
+import com.appfranchisor.app.databinding.DialogSuccessBinding
+import com.appfranchisor.app.databinding.ItemPesananDetailBinding
 import com.appfranchisor.app.helper.PreferenceHelper
+import com.appfranchisor.app.helper.Utils
 import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
@@ -57,9 +62,20 @@ class LoginActivity : MainActivity() {
                     PreferenceHelper.setUserId(this, response.userId)
                     PreferenceHelper.setToken(this, response.accessToken)
                     PreferenceHelper.setRole(this, response.role)
-                    navigateToScreen()
+                    val view = DialogSuccessBinding.inflate(LayoutInflater.from(this@LoginActivity),  )
+                    val dialog = Utils.showCustomDialog(view .root, this)
+                    view.button.setOnClickListener {
+                        dialog.dismiss()
+                        navigateToScreen()
+                    }
+
                 }
                 is ApiResponse.Error ->{
+                    if (it.resposeCode==401) {
+                        val view = DialogFailedBinding.inflate(LayoutInflater.from(this@LoginActivity),  )
+                       val dialog = Utils.showCustomDialog(view .root, this)
+                        view.button.setOnClickListener { dialog.dismiss() }
+                    }
                     it.message.showAsToast()
                     binding.buttonLogin.show()
                     binding.progressBar.hide()

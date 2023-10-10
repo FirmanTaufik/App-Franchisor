@@ -25,6 +25,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.TransaksiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.aplikator.ui.AplikatorDataFranchiseeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.franchisee.ui.FranchiseeDashboardActivity"
             android:exported="false" />
         <activity
@@ -64,7 +70,7 @@
             android:name=".ui.franchisee.ui.FranchiseeMainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.aplikator.ui.AplikatorDataFranchiseActivity"
+            android:name=".ui.aplikator.ui.AplikatorInputFranchisorActivity"
             android:exported="false" />
         <activity
             android:name=".ui.aplikator.ui.AplikastorDaftarFranchisorActivity"

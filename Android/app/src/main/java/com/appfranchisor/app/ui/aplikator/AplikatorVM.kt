@@ -14,6 +14,39 @@ import javax.inject.Inject
 @HiltViewModel
 class AplikatorVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
+    fun updateFranchisee( id:Int,
+                          username: String,
+                          password: String,
+                          pemilik: String,
+                          email: String,
+                          alamat: String,
+                          nomorTelpon: String,
+                          pic: String,
+                          nomorPIC: String)= flow {
+        emit(ApiResponse.Loading)
+        val response = apiService.updateFranchisee(
+            id,    username, password, pemilik, email, alamat, nomorTelpon,  pic, nomorPIC
+        )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+    fun franchisee( ) = flow {
+        emit(ApiResponse.Loading)
+        val response = apiService.franchisee(   )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error(response.convertErrorMessage()!!))
+
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+
     fun franchisor(
     )= flow {
         emit(ApiResponse.Loading)

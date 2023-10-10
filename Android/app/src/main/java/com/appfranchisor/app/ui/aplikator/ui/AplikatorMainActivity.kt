@@ -30,8 +30,10 @@ class AplikatorMainActivity : MainActivity() {
     private fun initOnClick() {
         binding.apply {
             buttonDashboard.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorDashboardActivity::class.java)) }
-            buttonDaftarFranchiseer.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorDataFranchiseActivity::class.java)) }
+            buttonInputFranchisor.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorInputFranchisorActivity::class.java)) }
             buttonDaftarFranchisor.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikastorDaftarFranchisorActivity::class.java)) }
+            buttonDaftarFranchisee.setOnClickListener { startActivity(Intent(this@AplikatorMainActivity, AplikatorDataFranchiseeActivity::class.java)) }
+
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@AplikatorMainActivity, title = "Butuh Konfirmasi",
                     message =  "Apakah Yakin Mau logout?",

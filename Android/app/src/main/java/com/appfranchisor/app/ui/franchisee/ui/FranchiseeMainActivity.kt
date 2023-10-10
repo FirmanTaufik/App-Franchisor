@@ -14,6 +14,7 @@ import com.appfranchisor.app.helper.Utils
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.TransaksiActivity
 import com.appfranchisor.app.ui.login.LoginActivity
 
 class FranchiseeMainActivity : MainActivity() {
@@ -33,6 +34,7 @@ class FranchiseeMainActivity : MainActivity() {
             buttonStatusPesanan.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeStatusPesananActivity::class.java))  }
             buttonDataFranchisee.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeDataMainActivity::class.java))  }
             buttonDashboard.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, FranchiseeDashboardActivity::class.java))  }
+            buttonTransaksiFranchisee.setOnClickListener { startActivity(Intent(this@FranchiseeMainActivity, TransaksiActivity::class.java))  }
 
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@FranchiseeMainActivity, title = "Butuh Konfirmasi",

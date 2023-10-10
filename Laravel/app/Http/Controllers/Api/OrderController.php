@@ -54,7 +54,7 @@ class OrderController extends Controller
                 ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
                     FROM tb_cart 
                     LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
-                    WHERE tb_order.tanggal BETWEEN  "' .$array[0] . '" and "' .$array[1] . '"
+                    WHERE tb_order.tanggal BETWEEN  "' . $array[0] . '" and "' . $array[1] . '"
                     and tb_order.id_franchisee = "' . $id . '" 
                     GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
                 ->whereColumn('tb_produk.id', 'tb.id')
@@ -65,7 +65,7 @@ class OrderController extends Controller
                 ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
                     FROM tb_cart 
                     LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
-                    WHERE tb_order.tanggal BETWEEN  "' .$array2[0] . '" and "' .$array2[1] . '"
+                    WHERE tb_order.tanggal BETWEEN  "' . $array2[0] . '" and "' . $array2[1] . '"
                     and tb_order.id_franchisee = "' . $id . '" 
                     GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
                 ->whereColumn('tb_produk.id', 'tb.id')
@@ -194,6 +194,48 @@ class OrderController extends Controller
                 ->where('tb_cart.id_order', '=', $value->id)
                 ->get();
 
+            $value->cart = $cart;
+        }
+
+        return response()->json([
+            'message' =>    'success',
+            'data' =>     $data,
+        ], 200);
+    }
+
+    function transaksi(Request $request)
+    {
+        $id_franchisee = $request->id_franchisee;
+        $dari = $request->dari;
+        $hingga = $request->hingga;
+
+        $query = DB::table('tb_order')
+            ->select(DB::raw('tb_order.*'), 'tb_franchisee.pemilik as franchisee')
+            ->leftJoin('tb_franchisee', 'tb_franchisee.id', '=', 'tb_order.id_franchisee');
+
+        if ($id_franchisee != null) {
+            $query->where('tb_order.id_franchisee', '=', $id_franchisee);
+        }
+        if ($dari != null && $hingga != null) {
+            $query->whereBetween('tb_order.tanggal', [$dari, $hingga]);
+        }
+        $data = $query->get();
+
+        foreach ($data as  $value) {
+            //  $cart =  CartModel::where('id_order', $value->id )->get();
+            $cart =  DB::table('tb_cart')
+                ->select(DB::raw('tb_cart.*'), 'tb_produk.nama', 'tb_produk.gambar')
+                ->leftJoin('tb_produk', 'tb_produk.id', '=', 'tb_cart.id_produk')
+                ->where('tb_cart.id_order', '=', $value->id)
+                ->get();
+
+            $total = 0;
+            foreach ($cart as  $c) {
+                $harga = $c->qty *$c->harga;
+                $total = $total +$harga;
+            }
+
+            $value->total = $total;
             $value->cart = $cart;
         }
 

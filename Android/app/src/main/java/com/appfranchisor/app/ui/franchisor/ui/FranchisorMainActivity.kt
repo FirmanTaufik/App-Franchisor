@@ -15,6 +15,7 @@ import com.appfranchisor.app.helper.Utils
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MainActivity
 import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.TransaksiActivity
 import com.appfranchisor.app.ui.login.LoginActivity
 
 class FranchisorMainActivity : MainActivity() {
@@ -34,6 +35,8 @@ class FranchisorMainActivity : MainActivity() {
             buttonDataDranchisee.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDataFranchiseeActivity::class.java)) }
             buttonDashboard.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorDashboardActivity::class.java)) }
             buttonInputProduk.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, FranchisorInputProdukActivity::class.java)) }
+            buttonTransaksiFranchisee.setOnClickListener { startActivity(Intent(this@FranchisorMainActivity, TransaksiActivity::class.java))  }
+
             buttonLogout.setOnClickListener {
                 Utils.showDialogDefaultConfirmation(this@FranchisorMainActivity, title = "Butuh Konfirmasi",
                     message =  "Apakah Yakin Mau logout?",

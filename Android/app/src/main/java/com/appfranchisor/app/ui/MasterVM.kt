@@ -13,6 +13,36 @@ import javax.inject.Inject
 @HiltViewModel
 class MasterVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
+    fun transaksi(id : Int?=null,dari : String?=null,hingga : String?=null) = flow {
+        emit(ApiResponse.Loading)
+        val response = if (id!=null)
+            if (dari == null && hingga==null)
+                apiService.transaksi( id)
+            else apiService.transaksi( id, dari, hingga)
+        else if (dari != null && hingga!=null)
+            apiService.transaksi( dari, hingga)
+         else   apiService.transaksi()
+
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        } else emit(ApiResponse.Error( "terjadi kesalahan"))
+
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
+
+    fun franchisee(id : Int?=null) = flow {
+        emit(ApiResponse.Loading)
+        val response = if (id==null) apiService.franchisee( )
+        else apiService.franchisee(id )
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error( "terjadi kesalahan"))
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
     fun pendapatan( id:Int,day1 :String, day2 :String , jenis :String) = flow {
         emit(ApiResponse.Loading)
         val response = apiService.pendapatan(id,day1, day2, jenis)
@@ -66,7 +96,10 @@ class MasterVM  @Inject constructor(private val apiService: ApiService) : ViewMo
         val response = apiService.postLogin(username, password)
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))
-        }else emit(ApiResponse.Error( "Username atau Password Salah"))
+        }else {
+            emit(ApiResponse.Error( "Username atau Password Salah",
+                response.code()))
+        }
 
     }.catch {
         emit(ApiResponse.Error( it.message!!))

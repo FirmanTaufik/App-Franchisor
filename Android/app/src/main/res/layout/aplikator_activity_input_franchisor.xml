@@ -7,14 +7,13 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-    tools:context=".ui.aplikator.ui.AplikatorDataFranchiseActivity">
+    tools:context=".ui.aplikator.ui.AplikatorInputFranchisorActivity">
 <ImageButton
     android:id="@+id/button_back"
     android:src="@drawable/baseline_arrow_back_24"
     android:background="@android:color/transparent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>
-
 
 <LinearLayout
     android:layout_marginTop="15dp"
@@ -62,7 +61,6 @@ android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/backgorund_edt_text_input_body"
             android:inputType="text"
-            android:focusable="false"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp" />
     </LinearLayout>

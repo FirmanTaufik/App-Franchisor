@@ -17,6 +17,7 @@ import com.appfranchisor.app.helper.Utils.hide
 import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MasterVM
+import com.appfranchisor.app.ui.franchisor.FranchiseeModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -32,8 +33,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 open class MpChartActivity : AppCompatActivity() {
-
+    var listFranchisee = listOf<FranchiseeModel.Data>()
     val viewModel: MasterVM by viewModels()
+    var idFranchisee = 0
     lateinit var binding: MpchartActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -463,19 +463,6 @@ object Utils {
 
  
 
-    fun showDialogPriceNotProvided(context: Context, back:()->Unit) {
-        val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(context)
-        alertDialogBuilder.setTitle("Harga belum tersedia!")
-        alertDialogBuilder.setMessage("Silahkan cek kembali tujuan anda, jika tidak ada harap hubungi cabang")
-        alertDialogBuilder.setCancelable(false)
-        alertDialogBuilder.setNegativeButton(
-            "Close"
-        ) { dialog: DialogInterface?, which: Int ->
-            back()
-        }
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
-    }
 
     val ymd :String  get() {
         val c1 = Calendar.getInstance()

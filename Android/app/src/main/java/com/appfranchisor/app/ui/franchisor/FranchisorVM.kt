@@ -12,7 +12,6 @@ import com.appfranchisor.app.helper.Utils.convertErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -55,10 +54,9 @@ class FranchisorVM  @Inject constructor(private val apiService: ApiService) : Vi
         emit(ApiResponse.Error( it.message!!))
     }.asLiveData(viewModelScope.coroutineContext)
 
-    fun franchisee(
-    )= flow {
+    fun franchisee(userId: Int?) = flow {
         emit(ApiResponse.Loading)
-        val response = apiService.franchisee(  )
+        val response = apiService.franchisee( userId )
         if (response.code()==200){
             emit(ApiResponse.Success(response.body()))
         }else emit(ApiResponse.Error(response.convertErrorMessage()!!))

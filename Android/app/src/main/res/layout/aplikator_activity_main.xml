@@ -74,11 +74,20 @@
                         android:textColor="@color/colorBlack"
                         app:cornerRadius="50dp" />-->
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_daftar_franchiseer"
+                        android:id="@+id/button_input_franchisor"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"
-                        android:text="List data Franchiseer"
+                        android:text="Input Franchisor"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBlack"
+                        app:cornerRadius="50dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_daftar_franchisee"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Daftar Franchisee"
                         android:textAllCaps="false"
                         android:textColor="@color/colorBlack"
                         app:cornerRadius="50dp" />

@@ -4,6 +4,7 @@ import com.appfranchisor.app.data.FilterOrderModel
 import com.appfranchisor.app.data.KategoriModel
 import com.appfranchisor.app.data.PendapatanModel
 import com.appfranchisor.app.data.ResponseModel
+import com.appfranchisor.app.data.TransaksiModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
 import com.appfranchisor.app.ui.franchisee.model.OrderModel
 import com.appfranchisor.app.ui.franchisee.model.PesanProduk
@@ -66,6 +67,8 @@ interface ApiService {
         @Field("pic") pic: String?,
         @Field("nomor_pic") nomor_pic: String?,
     ) : Response<ResponseModel>
+    @FormUrlEncoded
+
 
     @GET("franchisor")
     suspend fun franchisor( ) : Response<FranchisorModel>
@@ -100,6 +103,8 @@ interface ApiService {
         @Field("nomor_pic") nomor_pic: String?,
     ) : Response<ResponseModel>
 
+
+
     @FormUrlEncoded
     @POST("updateFranchisee/{id}")
     suspend fun updateFranchisee(
@@ -116,6 +121,11 @@ interface ApiService {
 
     @GET("franchisee")
     suspend fun franchisee( ) : Response<FranchiseeModel>
+
+    @GET("franchisee")
+    suspend fun franchisee(
+        @Query("id") id: Int?,
+    ) : Response<FranchiseeModel>
 
     @POST("logout")
     suspend fun postLogout( ) : Response<String>
@@ -191,4 +201,29 @@ interface ApiService {
         @Query("day2") day2: String?,
         @Query("jenis") jenis: String?,
     ): Response<PendapatanModel>
+
+
+    @GET("transaksi")
+    suspend fun transaksi( ) : Response<TransaksiModel>
+
+
+    @GET("transaksi")
+    suspend fun transaksi(
+        @Path("id_franchisee") id_franchisee: Int?,
+   ) : Response<TransaksiModel>
+
+
+    @GET("transaksi")
+    suspend fun transaksi(
+        @Path("id_franchisee") id_franchisee: Int?,
+        @Path("dari") dari: String?,
+        @Path("hingga") hingga: String?,
+    ) : Response<TransaksiModel>
+
+    @GET("transaksi")
+    suspend fun transaksi(
+        @Path("dari") dari: String?,
+        @Path("hingga") hingga: String?,
+    ) : Response<TransaksiModel>
+
 }

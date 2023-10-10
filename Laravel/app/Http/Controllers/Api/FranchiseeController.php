@@ -61,8 +61,14 @@ class FranchiseeController extends Controller
     }
 
 
-    public function index()  {
+    public function index(Request $request)  {
+        $id =$request->id;
         $data=FranchiseeModel::all();
+
+        if ($id!=null) {
+            $data=FranchiseeModel::where('id_franchisor' ,$id)->get();
+        }
+
         return response()->json([
             'message' => 'succes',
             'data' =>  $data,

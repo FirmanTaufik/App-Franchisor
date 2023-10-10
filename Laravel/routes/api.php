@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     //franchisee
     Route::get('/franchisee', [FranchiseeController::class, 'index'])->name('Franchisee');
-    Route::post('/createFranchisee', [FranchiseeController::class, 'create'])->name('createFranchisee');
+     Route::post('/createFranchisee', [FranchiseeController::class, 'create'])->name('createFranchisee');
     Route::post('/updateFranchisee/{id}', [FranchiseeController::class, 'update'])->name('updateFranchisee');
     
 
@@ -59,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/filterOrder', [OrderController::class, 'filter'])->name('filterOrder');
     Route::get('/terlaris/{id}', [OrderController::class, 'terlaris'])->name('terlaris');
     Route::get('/pendapatan/{id}', [OrderController::class, 'pendapatan'])->name('pendapatan');
+    Route::get('/transaksi', [OrderController::class, 'transaksi'])->name('transaksi');
 
     //franchisee
     Route::get('/pesanProduk', [FranchiseeController::class, 'pesanProduk'])->name('pesanProduk');
