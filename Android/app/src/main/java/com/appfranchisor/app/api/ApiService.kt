@@ -2,6 +2,7 @@ package com.appfranchisor.app.api
 
 import com.appfranchisor.app.data.FilterOrderModel
 import com.appfranchisor.app.data.KategoriModel
+import com.appfranchisor.app.data.PendapatanModel
 import com.appfranchisor.app.data.ResponseModel
 import com.appfranchisor.app.ui.aplikator.FranchisorModel
 import com.appfranchisor.app.ui.franchisee.model.OrderModel
@@ -180,4 +181,14 @@ interface ApiService {
         @Query("dari") dari: String?,
         @Query("hingga") hingga: String?,
     ): Response<FilterOrderModel>
+
+
+
+    @GET("pendapatan/{id}")
+    suspend fun pendapatan(
+        @Path("id") id: Int?,
+        @Query("day1") day1: String?,
+        @Query("day2") day2: String?,
+        @Query("jenis") jenis: String?,
+    ): Response<PendapatanModel>
 }

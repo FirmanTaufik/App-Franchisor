@@ -69,10 +69,21 @@
             </RelativeLayout>
 
 
-            <com.github.mikephil.charting.charts.HorizontalBarChart
-                android:id="@+id/horizontal_chart"
+            <FrameLayout
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="match_parent">
+
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/horizontal_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+                <ProgressBar
+                    android:id="@+id/progress_bar_terlaris"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -106,10 +117,20 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
+            <FrameLayout
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <ProgressBar
+                    android:id="@+id/progress_bar_pendapatan"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 

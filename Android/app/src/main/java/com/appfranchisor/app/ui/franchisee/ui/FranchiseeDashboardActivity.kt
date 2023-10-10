@@ -21,7 +21,7 @@ import java.time.temporal.TemporalAdjusters
 class FranchiseeDashboardActivity : MpChartActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initDataLineCart()
+        //initDataLineCart()
         initUI()
         initOnClick()
     }
@@ -36,45 +36,40 @@ class FranchiseeDashboardActivity : MpChartActivity() {
                             textSortPendapatan.text = "Today"
                             val yesterday = today.minusDays(1)
                             println("pendapatan $today $yesterday")
+                            viewModel.pendapatan(PreferenceHelper.getUserId(this@FranchiseeDashboardActivity)!!,
+                                today.toString(),yesterday.toString(), "day" )
+                                .observe(this@FranchiseeDashboardActivity,  responsePendapatan)
                         }
 
                         R.id.week -> {
                             textSortPendapatan.text = "Weekly"
                             val startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
                             val endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
-                            val mingguIni =  "$startOfWeek $endOfWeek"
-                            val mingguLalu = "${startOfWeek.minusDays(1)} ${startOfWeek.minusDays(7)} "
-
+                            val mingguIni =  "$startOfWeek/$endOfWeek"
+                            val mingguLalu = "${startOfWeek.minusDays(1)}/${startOfWeek.minusDays(7)} "
                             println("pendapatan $mingguIni $mingguLalu")
+
+                            viewModel.pendapatan(PreferenceHelper.getUserId(this@FranchiseeDashboardActivity)!!,
+                                mingguIni,mingguLalu, "week" )
+                                .observe(this@FranchiseeDashboardActivity,  responsePendapatan)
                         }
 
                         R.id.month -> {
                             textSortPendapatan.text = "Month"
-                            // Mendapatkan objek YearMonth untuk bulan saat ini
                             val yearMonth = YearMonth.from(today)
-
-                            // Mendapatkan tanggal awal bulan ini
                             val startOfMonthThisMonth = yearMonth.atDay(1)
-
-                            // Mendapatkan tanggal akhir bulan ini
                             val endOfMonthThisMonth = yearMonth.atEndOfMonth()
 
                             // Mendapatkan objek YearMonth untuk bulan lalu
                             val yearMonthLastMonth = yearMonth.minusMonths(1)
-
-                            // Mendapatkan tanggal awal bulan lalu
                             val startOfMonthLastMonth = yearMonthLastMonth.atDay(1)
-
-                            // Mendapatkan tanggal akhir bulan lalu
                             val endOfMonthLastMonth = yearMonthLastMonth.atEndOfMonth()
 
-                            // Mencetak tanggal awal dan akhir bulan ini
-                            println("Tanggal awal bulan ini: $startOfMonthThisMonth")
-                            println("Tanggal akhir bulan ini: $endOfMonthThisMonth")
-
-                            // Mencetak tanggal awal dan akhir bulan lalu
-                            println("Tanggal awal bulan lalu: $startOfMonthLastMonth")
-                            println("Tanggal akhir bulan lalu: $endOfMonthLastMonth")
+                            val day1 = "$startOfMonthThisMonth/$endOfMonthThisMonth"
+                            val day2 = "$startOfMonthLastMonth/$endOfMonthLastMonth"
+                            viewModel.pendapatan(PreferenceHelper.getUserId(this@FranchiseeDashboardActivity)!!,
+                                day1,day2, "month" )
+                                .observe(this@FranchiseeDashboardActivity,  responsePendapatan)
                         }
 
                     }
@@ -124,31 +119,13 @@ class FranchiseeDashboardActivity : MpChartActivity() {
         viewModel.terlaris(PreferenceHelper.getUserId(this@FranchiseeDashboardActivity)!!,
             today.toString() , "null" )
             .observe(this@FranchiseeDashboardActivity, responseTerlaris)
+
+        val yesterday = today.minusDays(1)
+        viewModel.pendapatan(PreferenceHelper.getUserId(this@FranchiseeDashboardActivity)!!,
+            today.toString(),yesterday.toString(), "day" )
+            .observe(this@FranchiseeDashboardActivity,  responsePendapatan)
     }
 
-    private fun initDataLineCart() {
-        setDataToLineChart(week1(), week2())
-    }
-
-    private fun week1(): ArrayList<Entry> {
-        val sales = ArrayList<Entry>()
-        sales.add(Entry(0f, 15f))
-        sales.add(Entry(1f, 16f))
-        sales.add(Entry(2f, 13f))
-        sales.add(Entry(3f, 22f))
-        sales.add(Entry(4f, 20f))
-        return sales
-    }
-
-    private fun week2(): ArrayList<Entry> {
-        val sales = ArrayList<Entry>()
-        sales.add(Entry(0f, 11f))
-        sales.add(Entry(1f, 13f))
-        sales.add(Entry(2f, 18f))
-        sales.add(Entry(3f, 16f))
-        sales.add(Entry(4f, 22f))
-        return sales
-    }
 
 
 

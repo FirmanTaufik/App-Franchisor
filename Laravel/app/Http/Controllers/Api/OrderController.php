@@ -18,40 +18,69 @@ class OrderController extends Controller
     {
 
         $jenis = $request->jenis;
-        $data = "";
+        $terjualSaatIniSubquery = "";
+        $terjualSaatKemarinSubquery = "";
+        $day1 = $request->day1;
+        $day2 = $request->day2;
         if ($jenis == "day") {
-            $day1 = $request->day1;
-            $day2 = $request->day2;
 
-            $t1 = DB::table('tb_cart')
-                ->select(
-                    'tb_cart.id_order',
-                    'tb_cart.id_produk',
-                    DB::raw('ifnull(SUM(tb_cart.qty*tb_cart.harga),0) AS total'),
-                    DB::raw('tb_order.tanggal AS tanggal_order')
-                )
-                ->leftJoin('tb_order', 'tb_order.id', '=', 'tb_cart.id_order')
-                ->where('tb_order.tanggal', '=', $day1)
-                ->groupBy('tb_cart.id');
+            $terjualSaatIniSubquery = DB::table('tb_produk')
+                ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
+                        FROM tb_cart 
+                        LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
+                        WHERE tb_order.tanggal = "' . $day1 . '" 
+                        and tb_order.id_franchisee = "' . $id . '" 
+                        GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
+                ->whereColumn('tb_produk.id', 'tb.id')
+                ->select(DB::raw('IFNULL(SUM(total), 0) AS total'))
+                ->groupBy('tb_produk.id');
+
+            $terjualSaatKemarinSubquery = DB::table('tb_produk')
+                ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
+                        FROM tb_cart 
+                        LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
+                        WHERE tb_order.tanggal =  "' . $day2 . '" 
+                        and tb_order.id_franchisee = "' . $id . '" 
+                        GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
+                ->whereColumn('tb_produk.id', 'tb.id')
+                ->select(DB::raw('IFNULL(SUM(total), 0) AS total'))
+                ->groupBy('tb_produk.id');
+        } else {
+            $array = explode("/", $day1);
+            $array2 = explode("/", $day2);
 
 
+            $terjualSaatIniSubquery = DB::table('tb_produk')
+                ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
+                    FROM tb_cart 
+                    LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
+                    WHERE tb_order.tanggal BETWEEN  "' .$array[0] . '" and "' .$array[1] . '"
+                    and tb_order.id_franchisee = "' . $id . '" 
+                    GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
+                ->whereColumn('tb_produk.id', 'tb.id')
+                ->select(DB::raw('IFNULL(SUM(total), 0) AS total'))
+                ->groupBy('tb_produk.id');
 
-            $t2 = DB::table('tb_cart')
-                ->select(
-                    'tb_cart.id_order',
-                    'tb_cart.id_produk',
-                    DB::raw('ifnull(SUM(tb_cart.qty*tb_cart.harga),0) AS total'),
-                    DB::raw('tb_order.tanggal AS tanggal_order')
-                )
-                ->leftJoin('tb_order', 'tb_order.id', '=', 'tb_cart.id_order')
-                ->where('tb_order.tanggal', '=', $day2)
-                ->groupBy('tb_cart.id');
-
-            $data = new  stdClass();
-            $data->pertama = $this->listProduk($t1);
-            $data->kedua = $this->listProduk($t2);
+            $terjualSaatKemarinSubquery = DB::table('tb_produk')
+                ->leftJoin(DB::raw('(SELECT tb_cart.*, tb_order.tanggal AS tanggal_order, SUM(tb_cart.qty*tb_cart.harga) AS total 
+                    FROM tb_cart 
+                    LEFT JOIN tb_order ON tb_order.id = tb_cart.id_order 
+                    WHERE tb_order.tanggal BETWEEN  "' .$array2[0] . '" and "' .$array2[1] . '"
+                    and tb_order.id_franchisee = "' . $id . '" 
+                    GROUP BY tb_cart.id) t1'), 'tb_produk.id', '=', 't1.id_produk')
+                ->whereColumn('tb_produk.id', 'tb.id')
+                ->select(DB::raw('IFNULL(SUM(total), 0) AS total'))
+                ->groupBy('tb_produk.id');
         }
 
+        $data = DB::table('tb_produk as tb')
+            ->select('tb.id', 'tb.nama')
+            ->selectSub($terjualSaatIniSubquery, 'terjual_saat_ini')
+            ->selectSub($terjualSaatKemarinSubquery, 'terjual_saat_kemarin')
+            ->orderByDesc('terjual_saat_ini')
+            ->orderByDesc('terjual_saat_kemarin')
+            ->limit(5)
+            ->get();
         return response()->json([
             'message' => 'succes',
             'data' => $data,

@@ -11,10 +11,12 @@ import androidx.core.content.ContextCompat
 import com.appfranchisor.app.R
 import com.appfranchisor.app.api.ApiResponse
 import com.appfranchisor.app.data.FilterOrderModel
+import com.appfranchisor.app.data.PendapatanModel
 import com.appfranchisor.app.databinding.MpchartActivityBinding
+import com.appfranchisor.app.helper.Utils.hide
+import com.appfranchisor.app.helper.Utils.show
 import com.appfranchisor.app.helper.Utils.showAsToast
 import com.appfranchisor.app.ui.MasterVM
-import com.appfranchisor.app.ui.franchisee.model.OrderModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -38,12 +40,11 @@ open class MpChartActivity : AppCompatActivity() {
         binding = MpchartActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpLineChart()
         binding.buttonBack.setOnClickListener { finish() }
     }
 
 
-    private fun setUpLineChart() {
+    private fun setUpLineChart(list: List<String?>?) {
         with(binding.lineChart) {
             animateX(1200, Easing.EaseInSine)
             description.isEnabled = false
@@ -51,7 +52,9 @@ open class MpChartActivity : AppCompatActivity() {
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1F
-            xAxis.valueFormatter = MyAxisFormatter()
+
+           // val items = arrayListOf("Milk", "Butter", "Cheese", "Ice cream", "Milkshake")
+            xAxis.valueFormatter = MyAxisFormatter(list as ArrayList)
 
             axisRight.isEnabled = false
             extraRightOffset = 30f
@@ -66,7 +69,19 @@ open class MpChartActivity : AppCompatActivity() {
 
     fun setDataToLineChart(week1: ArrayList<Entry>, week2: ArrayList<Entry>) {
 
-        val weekOneSales = LineDataSet(week1, "Week 1")
+        val labelData1 = when(binding.textSortPendapatan.text.toString().lowercase() ) {
+            "today" -> "Hari Ini"
+            "weekly" -> "Minggu Ini"
+            else -> "Bulan Ini"
+        }
+
+        val labelData2 = when(binding.textSortPendapatan.text.toString().lowercase() ) {
+            "today" -> "Kemarin"
+            "weekly" -> "Minggu Lalu"
+            else -> "Bulan Lalu"
+        }
+
+        val weekOneSales = LineDataSet(week1, labelData1)
         weekOneSales.lineWidth = 3f
         weekOneSales.valueTextSize = 15f
         weekOneSales.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -74,7 +89,7 @@ open class MpChartActivity : AppCompatActivity() {
         weekOneSales.valueTextColor = ContextCompat.getColor(this, R.color.colorGray)
         // weekOneSales.enableDashedLine(20F, 10F, 0F)
 
-        val weekTwoSales = LineDataSet(week2, "Week 2")
+        val weekTwoSales = LineDataSet(week2, labelData2)
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
@@ -156,6 +171,43 @@ open class MpChartActivity : AppCompatActivity() {
         binding.horizontalChart.invalidate()
     }
 
+    val responsePendapatan: (ApiResponse<out PendapatanModel?>) -> Unit = {
+        when (it) {
+            is ApiResponse.Success -> {
+                val list = it.item?.data?.map { it.nama }
+                setUpLineChart(list)
+                val saatIni =  it.item?.data?.map { it.terjualSaatIni }
+                val saatKemarin =  it.item?.data?.map { it.terjualSaatKemarin }
+                setDataToLineChart(makeListEntry(saatIni), makeListEntry(saatKemarin))
+                println("responsePendapatan ${it.item}")
+                binding.progressBarPendapatan.hide()
+            }
+
+            is ApiResponse.Error -> {
+                binding.progressBarPendapatan.hide()
+                it.message.showAsToast()
+            }
+
+            else -> {
+                binding.progressBarPendapatan.show()
+            }
+        }
+    }
+
+    private fun makeListEntry(list: List<String?>?): ArrayList<Entry> {
+        val sales = ArrayList<Entry>()
+        list?.forEachIndexed { index,value ->
+            sales.add(Entry(index.toFloat(), value!!.toFloat()))
+        }
+      /*  sales.add(Entry(0f, 15f))
+        sales.add(Entry(1f, 16f))
+        sales.add(Entry(2f, 13f))
+        sales.add(Entry(3f, 22f))
+        sales.add(Entry(4f, 20f))*/
+        return sales
+    }
+
+
     val responseTerlaris: (ApiResponse<out FilterOrderModel?>) -> Unit = {
         when (it) {
             is ApiResponse.Success -> {
@@ -163,13 +215,16 @@ open class MpChartActivity : AppCompatActivity() {
                 val listSell = it.item?.data?.map { it.terjual }?.reversed()
                 initUIHorizontalBar(listName)
                 initDataHorizontalBar(listSell)
+                binding.progressBarTerlaris.hide()
             }
 
             is ApiResponse.Error -> {
+                binding.progressBarTerlaris.hide()
                 it.message.showAsToast()
             }
 
             else -> {
+                binding.progressBarTerlaris.show()
             }
         }
     }

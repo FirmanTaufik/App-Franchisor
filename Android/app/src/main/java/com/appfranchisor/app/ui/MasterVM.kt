@@ -13,6 +13,16 @@ import javax.inject.Inject
 @HiltViewModel
 class MasterVM  @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
+    fun pendapatan( id:Int,day1 :String, day2 :String , jenis :String) = flow {
+        emit(ApiResponse.Loading)
+        val response = apiService.pendapatan(id,day1, day2, jenis)
+        if (response.code()==200){
+            emit(ApiResponse.Success(response.body()))
+        }else emit(ApiResponse.Error( "terjadi kesalahan"))
+    }.catch {
+        emit(ApiResponse.Error( it.message!!))
+    }.asLiveData(viewModelScope.coroutineContext)
+
     fun terlaris( id:Int,dari :String, hingga :String ) = flow {
         emit(ApiResponse.Loading)
         val response = apiService.terlaris(id,dari, hingga)
